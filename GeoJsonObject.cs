@@ -9,5 +9,5 @@ public abstract class GeoJsonObject
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("bbox")]
-    public BoundingBox? Bbox { get; set; } = null;
+    public BoundingBox? Bbox { get; init; } = null;
 }

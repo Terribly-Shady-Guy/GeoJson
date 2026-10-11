@@ -6,22 +6,22 @@ namespace GeoJson;
 /// Represents a Feature geojson object type.
 /// </summary>
 /// <typeparam name="TProperties">The type representing the Properties property.</typeparam>
-public sealed class Feature<TProperties> : GeoJsonObject
+public sealed class Feature<TProperties>(IGeometry? geometry, TProperties properties) : GeoJsonObject
     where TProperties : class
 {
     [JsonPropertyName("geometry")]
-    public IGeometry? Geometry { get; set; }
+    public IGeometry? Geometry { get; } = geometry;
     [JsonPropertyName("properties")]
-    public required TProperties Properties { get; set; }
+    public TProperties Properties { get; } = properties;
 }
 
 /// <summary>
 /// Reporesents a collection of Feature geojson objects.
 /// </summary>
 /// <typeparam name="TFeatureProperties">The type used for each feature Properties property.</typeparam>
-public sealed class FeatureCollection<TFeatureProperties> : GeoJsonObject
+public sealed class FeatureCollection<TFeatureProperties>(Feature<TFeatureProperties>[] features) : GeoJsonObject
     where TFeatureProperties : class
 {
     [JsonPropertyName("features")]
-    public Feature<TFeatureProperties>[] Features { get; set; } = [];
+    public Feature<TFeatureProperties>[] Features { get; } = features;
 }

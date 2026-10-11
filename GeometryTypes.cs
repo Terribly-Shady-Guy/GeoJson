@@ -18,62 +18,62 @@ public interface IGeometry;
 /// <summary>
 /// A geometry geojson type representing a single position.
 /// </summary>
-public sealed class PointGeometry : GeoJsonObject, IGeometry
+public sealed class PointGeometry(Position coordinates) : GeoJsonObject, IGeometry
 {
     [JsonPropertyName("coordinates")]
-    public required Position Coordinates { get; set; }
+    public Position Coordinates { get; } = coordinates;
 }
 
 /// <summary>
 /// A geometry geojson type representing a collection of positions.
 /// </summary>
-public sealed class MultiPointGeometry : GeoJsonObject, IGeometry
+public sealed class MultiPointGeometry(Position[] coordinates) : GeoJsonObject, IGeometry
 {
     [JsonPropertyName("coordinates")]
-    public required Position[] Coordinates { get; set; }
+    public Position[] Coordinates { get; } = coordinates;
 }
 
 /// <summary>
 /// A geometry geojson type representing a sequence of positions.
 /// </summary>
-public sealed class LineStringGeometry : GeoJsonObject, IGeometry   
+public sealed class LineStringGeometry(Position[] coordinates) : GeoJsonObject, IGeometry   
 {
     [JsonPropertyName("coordinates")]
-    public required Position[] Coordinates { get; set; }
+    public Position[] Coordinates { get; } = coordinates;
 }
 
 /// <summary>
 /// A geometry geojson type representing a collection of LineStrings.
 /// </summary>
-public sealed class MultiLineStringGeometry : GeoJsonObject, IGeometry
+public sealed class MultiLineStringGeometry(Position[][] coordinates) : GeoJsonObject, IGeometry
 {
     [JsonPropertyName("coordinates")]
-    public required Position[][] Coordinates { get; set; }
+    public Position[][] Coordinates { get; } = coordinates;
 }
 
 /// <summary>
 /// A geometry geojson type representing a Polygon.
 /// </summary>
-public sealed class PolygonGeometry : GeoJsonObject, IGeometry
+public sealed class PolygonGeometry(Position[][] coordinates) : GeoJsonObject, IGeometry
 {
     [JsonPropertyName("coordinates")]
-    public required Position[][] Coordinates { get; set; }
+    public Position[][] Coordinates { get; } = coordinates;
 }
 
 /// <summary>
 /// A geometry geojson type representing a collection of polygons.
 /// </summary>
-public sealed class MultiPolygonGeometry : GeoJsonObject, IGeometry
+public sealed class MultiPolygonGeometry(Position[][][] coordinates) : GeoJsonObject, IGeometry
 {
     [JsonPropertyName("coordinates")]
-    public required Position[][][] Coordinates { get; set; }
+    public Position[][][] Coordinates { get; } = coordinates;
 }
 
 /// <summary>
 /// A geometry geojson type representing a collection of geometries.
 /// </summary>
-public sealed class GeometryCollection : GeoJsonObject, IGeometry
+public sealed class GeometryCollection(IGeometry[] geometries) : GeoJsonObject, IGeometry
 {
     [JsonPropertyName("geometries")]
-    public IGeometry[] Geometries { get; set; } = [];
+    public IGeometry[] Geometries { get; } = geometries;
 }
