@@ -1,0 +1,94 @@
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+
+namespace GeoJson;
+
+/// <summary>
+/// Represents a bounding box for a geojson type.
+/// </summary>
+[JsonConverter(typeof(BoundingBoxConverter))]
+public abstract record BoundingBox
+{
+    public required double West { get; init; }
+    public required double South { get; init; }
+    public required double East { get; init; }
+    public required double North { get; init; }
+}
+
+/// <summary>
+/// Represents a 2D bounding box for a geojson type.
+/// </summary>
+public sealed record BoundingBox2D : BoundingBox;
+
+/// <summary>
+/// Represents a 3D bounding box for a geojson type.
+/// </summary>
+public sealed record BoundingBox3D : BoundingBox
+{
+    public required double MinAltitude { get; init; }
+    public required double MaxAltitude { get; init; }
+}
+
+public class BoundingBoxConverter : JsonConverter<BoundingBox>
+{
+    public override BoundingBox Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        if (reader.TokenType != JsonTokenType.StartArray)
+        {
+            throw new JsonException("bbox must be an array.");
+        }
+        
+        Span<double> bboxBuffer = stackalloc double[6];
+
+        int count;
+        for (count = 0; count < bboxBuffer.Length && ShouldStillRead(reader); count++)
+        {
+            bboxBuffer[count] = reader.GetDouble();
+        }
+
+        return count switch
+        {
+            4 => new BoundingBox2D
+            {
+                West = bboxBuffer[0],
+                South = bboxBuffer[1],
+                East = bboxBuffer[2],
+                North = bboxBuffer[3],
+            },
+            6 => new BoundingBox3D
+            {
+                West = bboxBuffer[0],
+                South = bboxBuffer[1],
+                MinAltitude = bboxBuffer[2],
+                East = bboxBuffer[3],
+                North = bboxBuffer[4],
+                MaxAltitude = bboxBuffer[5]
+            },
+            _ => throw new JsonException("A valid bbox must contain 4 or 6 elements.")
+        };
+    }
+
+    public override void Write(Utf8JsonWriter writer, BoundingBox value, JsonSerializerOptions options)
+    {
+        BoundingBox3D? box3D = value as BoundingBox3D;
+        writer.WriteStartArray();
+
+        writer.WriteNumberValue(value.West);
+        writer.WriteNumberValue(value.South);
+
+        if (box3D != null) writer.WriteNumberValue(box3D.MinAltitude);
+
+        writer.WriteNumberValue(value.East);
+        writer.WriteNumberValue(value.North);
+
+        if (box3D != null) writer.WriteNumberValue(box3D.MaxAltitude);
+
+        writer.WriteEndArray();
+    }
+
+    private static bool ShouldStillRead(Utf8JsonReader reader)
+    {
+        return reader.Read() && reader.TokenType != JsonTokenType.EndArray;
+    }
+}
+
