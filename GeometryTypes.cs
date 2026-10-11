@@ -20,6 +20,7 @@ public interface IGeometry;
 /// </summary>
 public sealed class PointGeometry : GeoJsonObject, IGeometry
 {
+    [JsonPropertyName("coordinates")]
     public required Position Coordinates { get; set; }
 }
 
@@ -28,6 +29,7 @@ public sealed class PointGeometry : GeoJsonObject, IGeometry
 /// </summary>
 public sealed class MultiPointGeometry : GeoJsonObject, IGeometry
 {
+    [JsonPropertyName("coordinates")]
     public required Position[] Coordinates { get; set; }
 }
 
@@ -36,6 +38,7 @@ public sealed class MultiPointGeometry : GeoJsonObject, IGeometry
 /// </summary>
 public sealed class LineStringGeometry : GeoJsonObject, IGeometry   
 {
+    [JsonPropertyName("coordinates")]
     public required Position[] Coordinates { get; set; }
 }
 
@@ -44,6 +47,7 @@ public sealed class LineStringGeometry : GeoJsonObject, IGeometry
 /// </summary>
 public sealed class MultiLineStringGeometry : GeoJsonObject, IGeometry
 {
+    [JsonPropertyName("coordinates")]
     public required Position[][] Coordinates { get; set; }
 }
 
@@ -52,6 +56,7 @@ public sealed class MultiLineStringGeometry : GeoJsonObject, IGeometry
 /// </summary>
 public sealed class PolygonGeometry : GeoJsonObject, IGeometry
 {
+    [JsonPropertyName("coordinates")]
     public required Position[][] Coordinates { get; set; }
 }
 
@@ -60,6 +65,7 @@ public sealed class PolygonGeometry : GeoJsonObject, IGeometry
 /// </summary>
 public sealed class MultiPolygonGeometry : GeoJsonObject, IGeometry
 {
+    [JsonPropertyName("coordinates")]
     public required Position[][][] Coordinates { get; set; }
 }
 
@@ -68,5 +74,6 @@ public sealed class MultiPolygonGeometry : GeoJsonObject, IGeometry
 /// </summary>
 public sealed class GeometryCollection : GeoJsonObject, IGeometry
 {
+    [JsonPropertyName("geometries")]
     public IGeometry[] Geometries { get; set; } = [];
 }
