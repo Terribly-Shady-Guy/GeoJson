@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 
 namespace GeoJson;
 
@@ -10,4 +12,8 @@ public abstract class GeoJsonObject
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("bbox")]
     public BoundingBox? Bbox { get; init; } = null;
+
+    [JsonExtensionData]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public Dictionary<string, JsonNode>? ForeignMembers { get; init; } = null;
 }
