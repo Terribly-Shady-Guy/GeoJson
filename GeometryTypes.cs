@@ -5,21 +5,15 @@ namespace GeoJson;
 /// <summary>
 /// A marker interface representing a geometry geojson type.
 /// </summary>
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
-[JsonDerivedType(typeof(PointGeometry), nameof(GeoJsonObjectTypes.Point))]
-[JsonDerivedType(typeof(MultiPointGeometry), nameof(GeoJsonObjectTypes.MultiPoint))]
-[JsonDerivedType(typeof(LineStringGeometry), nameof(GeoJsonObjectTypes.LineString))]
-[JsonDerivedType(typeof(MultiLineStringGeometry), nameof(GeoJsonObjectTypes.MultiLineString))]
-[JsonDerivedType(typeof(PolygonGeometry), nameof(GeoJsonObjectTypes.Polygon))]
-[JsonDerivedType(typeof(MultiPolygonGeometry), nameof(GeoJsonObjectTypes.MultiPolygon))]
-[JsonDerivedType(typeof(GeometryCollection), nameof(GeoJsonObjectTypes.GeometryCollection))]
-public interface IGeometry;
+public abstract class GeometryGeoJsonObject : GeoJsonObject;
 
 /// <summary>
 /// A geometry geojson type representing a single position.
 /// </summary>
-public sealed class PointGeometry(Position coordinates) : GeoJsonObject, IGeometry
+public sealed class PointGeometry(Position coordinates) : GeometryGeoJsonObject
 {
+    internal override GeoJsonObjectTypes Type => GeoJsonObjectTypes.Point;
+
     [JsonPropertyName("coordinates")]
     public Position Coordinates { get; } = coordinates;
 }
@@ -27,8 +21,10 @@ public sealed class PointGeometry(Position coordinates) : GeoJsonObject, IGeomet
 /// <summary>
 /// A geometry geojson type representing a collection of positions.
 /// </summary>
-public sealed class MultiPointGeometry(Position[] coordinates) : GeoJsonObject, IGeometry
+public sealed class MultiPointGeometry(Position[] coordinates) : GeometryGeoJsonObject
 {
+    internal override GeoJsonObjectTypes Type => GeoJsonObjectTypes.MultiPoint;
+
     [JsonPropertyName("coordinates")]
     public Position[] Coordinates { get; } = coordinates;
 }
@@ -36,17 +32,20 @@ public sealed class MultiPointGeometry(Position[] coordinates) : GeoJsonObject, 
 /// <summary>
 /// A geometry geojson type representing a sequence of positions.
 /// </summary>
-public sealed class LineStringGeometry(Position[] coordinates) : GeoJsonObject, IGeometry   
+public sealed class LineStringGeometry(Position[] coordinates) : GeometryGeoJsonObject  
 {
+    internal override GeoJsonObjectTypes Type => GeoJsonObjectTypes.LineString;
     [JsonPropertyName("coordinates")]
     public Position[] Coordinates { get; } = coordinates;
+    
 }
 
 /// <summary>
 /// A geometry geojson type representing a collection of LineStrings.
 /// </summary>
-public sealed class MultiLineStringGeometry(Position[][] coordinates) : GeoJsonObject, IGeometry
+public sealed class MultiLineStringGeometry(Position[][] coordinates) : GeometryGeoJsonObject
 {
+    internal override GeoJsonObjectTypes Type => GeoJsonObjectTypes.MultiLineString;
     [JsonPropertyName("coordinates")]
     public Position[][] Coordinates { get; } = coordinates;
 }
@@ -54,8 +53,9 @@ public sealed class MultiLineStringGeometry(Position[][] coordinates) : GeoJsonO
 /// <summary>
 /// A geometry geojson type representing a Polygon.
 /// </summary>
-public sealed class PolygonGeometry(Position[][] coordinates) : GeoJsonObject, IGeometry
+public sealed class PolygonGeometry(Position[][] coordinates) : GeometryGeoJsonObject
 {
+    internal override GeoJsonObjectTypes Type => GeoJsonObjectTypes.Polygon;
     [JsonPropertyName("coordinates")]
     public Position[][] Coordinates { get; } = coordinates;
 }
@@ -63,8 +63,9 @@ public sealed class PolygonGeometry(Position[][] coordinates) : GeoJsonObject, I
 /// <summary>
 /// A geometry geojson type representing a collection of polygons.
 /// </summary>
-public sealed class MultiPolygonGeometry(Position[][][] coordinates) : GeoJsonObject, IGeometry
+public sealed class MultiPolygonGeometry(Position[][][] coordinates) : GeometryGeoJsonObject
 {
+    internal override GeoJsonObjectTypes Type => GeoJsonObjectTypes.MultiPolygon;
     [JsonPropertyName("coordinates")]
     public Position[][][] Coordinates { get; } = coordinates;
 }
@@ -72,8 +73,9 @@ public sealed class MultiPolygonGeometry(Position[][][] coordinates) : GeoJsonOb
 /// <summary>
 /// A geometry geojson type representing a collection of geometries.
 /// </summary>
-public sealed class GeometryCollection(IGeometry[] geometries) : GeoJsonObject, IGeometry
+public sealed class GeometryCollection(GeometryGeoJsonObject[] geometries) : GeometryGeoJsonObject
 {
+    internal override GeoJsonObjectTypes Type => GeoJsonObjectTypes.GeometryCollection;
     [JsonPropertyName("geometries")]
-    public IGeometry[] Geometries { get; } = geometries;
+    public GeometryGeoJsonObject[] Geometries { get; } = geometries;
 }

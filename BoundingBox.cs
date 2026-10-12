@@ -9,10 +9,10 @@ namespace GeoJson;
 [JsonConverter(typeof(BoundingBoxConverter))]
 public abstract record BoundingBox
 {
-    public required double West { get; init; }
-    public required double South { get; init; }
-    public required double East { get; init; }
-    public required double North { get; init; }
+    public required double MinLongitude { get; init; }
+    public required double MinLatitude { get; init; }
+    public required double MaxLongitude { get; init; }
+    public required double MaxLatitude { get; init; }
 }
 
 /// <summary>
@@ -50,18 +50,18 @@ public class BoundingBoxConverter : JsonConverter<BoundingBox>
         {
             4 => new BoundingBox2D
             {
-                West = bboxBuffer[0],
-                South = bboxBuffer[1],
-                East = bboxBuffer[2],
-                North = bboxBuffer[3],
+                MinLongitude = bboxBuffer[0],
+                MinLatitude = bboxBuffer[1],
+                MaxLongitude = bboxBuffer[2],
+                MaxLatitude = bboxBuffer[3],
             },
             6 => new BoundingBox3D
             {
-                West = bboxBuffer[0],
-                South = bboxBuffer[1],
+                MinLongitude = bboxBuffer[0],
+                MinLatitude = bboxBuffer[1],
                 MinAltitude = bboxBuffer[2],
-                East = bboxBuffer[3],
-                North = bboxBuffer[4],
+                MaxLongitude = bboxBuffer[3],
+                MaxLatitude = bboxBuffer[4],
                 MaxAltitude = bboxBuffer[5]
             },
             _ => throw new JsonException("A valid bbox must contain 4 or 6 elements.")
@@ -73,13 +73,13 @@ public class BoundingBoxConverter : JsonConverter<BoundingBox>
         BoundingBox3D? box3D = value as BoundingBox3D;
         writer.WriteStartArray();
 
-        writer.WriteNumberValue(value.West);
-        writer.WriteNumberValue(value.South);
+        writer.WriteNumberValue(value.MinLongitude);
+        writer.WriteNumberValue(value.MinLatitude);
 
         if (box3D != null) writer.WriteNumberValue(box3D.MinAltitude);
 
-        writer.WriteNumberValue(value.East);
-        writer.WriteNumberValue(value.North);
+        writer.WriteNumberValue(value.MaxLongitude);
+        writer.WriteNumberValue(value.MaxLatitude);
 
         if (box3D != null) writer.WriteNumberValue(box3D.MaxAltitude);
 
