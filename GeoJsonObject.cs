@@ -20,6 +20,6 @@ public abstract class GeoJsonObject
     public BoundingBox? Bbox { get; init; } = null;
 
     [JsonExtensionData]
-    public Dictionary<string, JsonElement>? ForeignMembers { get; init; } = null;
+    public IDictionary<string, JsonElement>? ForeignMembers { get; init; } = null;
 
 }
