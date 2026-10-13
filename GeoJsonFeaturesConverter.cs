@@ -8,15 +8,15 @@ public sealed class GeoJsonFeaturesConverter<TProperties> : JsonConverter<GeoJso
 {
     public override GeoJsonObject? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        using var jsonDocument = JsonDocument.ParseValue(ref reader);
-        JsonElement root = jsonDocument.RootElement;
+        using var document = JsonDocument.ParseValue(ref reader);
+        JsonElement root = document.RootElement;
 
         JsonElement typeProperty = root.GetProperty("type");
-        string? typeValue = typeProperty.GetString();
+        string? unparsedType = typeProperty.GetString();
 
-        if (!Enum.TryParse<GeoJsonObjectTypes>(typeValue, out var geoJsonType))
+        if (!Enum.TryParse<GeoJsonObjectTypes>(unparsedType, out var geoJsonType))
         {
-            throw new JsonException($"Invalid GeoJSON type: {typeValue}");
+            throw new JsonException($"Invalid GeoJSON type: {unparsedType}");
         }
 
         return geoJsonType switch

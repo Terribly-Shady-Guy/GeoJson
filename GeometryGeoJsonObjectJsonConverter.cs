@@ -7,8 +7,8 @@ public sealed class GeometryGeoJsonObjectJsonConverter : JsonConverter<GeometryG
 {
     public override GeometryGeoJsonObject? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        using var jsonDocument = JsonDocument.ParseValue(ref reader);
-        JsonElement root = jsonDocument.RootElement;
+        using var document = JsonDocument.ParseValue(ref reader);
+        JsonElement root = document.RootElement;
 
         JsonElement typeProperty = root.GetProperty("type");
         string? unparsedType = typeProperty.GetString();
