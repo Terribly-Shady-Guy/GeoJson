@@ -1,5 +1,8 @@
-﻿namespace GeoJson;
+﻿using System.Text.Json.Serialization;
 
+namespace GeoJson;
+
+[JsonConverter(typeof(JsonStringEnumConverter))]
 internal enum GeoJsonObjectTypes
 {
     Point = 0,

@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="../ConsoleApp2/ConsoleApp2.csproj" Id="d311d378-6af9-4ce8-b32a-ad778d3393bd" />
   <Project Path="GeoJson.csproj" />
 </Solution>
