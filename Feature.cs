@@ -21,11 +21,11 @@ public sealed class Feature<TProperties>(GeometryGeoJsonObject? geometry, TPrope
 /// Reporesents a collection of Feature geojson objects.
 /// </summary>
 /// <typeparam name="TFeatureProperties">The type used for each feature Properties property.</typeparam>
-public sealed class FeatureCollection<TFeatureProperties>(Feature<TFeatureProperties>[] features) : GeoJsonObject
+public sealed class FeatureCollection<TFeatureProperties>(IList<Feature<TFeatureProperties>> features) : GeoJsonObject
     where TFeatureProperties : class
 {
     internal override GeoJsonObjectTypes Type => GeoJsonObjectTypes.FeatureCollection;
 
     [JsonPropertyName("features")]
-    public Feature<TFeatureProperties>[] Features { get; } = features;
+    public IList<Feature<TFeatureProperties>> Features { get; } = features;
 }
