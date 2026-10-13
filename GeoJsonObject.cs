@@ -21,5 +21,4 @@ public abstract class GeoJsonObject
 
     [JsonExtensionData]
     public IDictionary<string, JsonElement>? ForeignMembers { get; init; } = null;
-
 }
