@@ -5,14 +5,16 @@ namespace GeoJson;
 /// <summary>
 /// Represents a Feature geojson object type.
 /// </summary>
+/// <typeparam name="TGeometry">The type representing the Geometry property.</typeparam>
 /// <typeparam name="TProperties">The type representing the Properties property.</typeparam>
-public sealed class Feature<TProperties>(GeometryGeoJsonObject? geometry, TProperties properties) : GeoJsonObject
+public sealed class Feature<TGeometry, TProperties>(TGeometry? geometry, TProperties properties) : GeoJsonObject
     where TProperties : class
+    where TGeometry : GeometryGeoJsonObject
 {
     internal override GeoJsonObjectTypes Type => GeoJsonObjectTypes.Feature;
 
     [JsonPropertyName("geometry")]
-    public GeometryGeoJsonObject? Geometry { get; } = geometry;
+    public TGeometry? Geometry { get; } = geometry;
     [JsonPropertyName("properties")]
     public TProperties Properties { get; } = properties;
 }
@@ -20,12 +22,14 @@ public sealed class Feature<TProperties>(GeometryGeoJsonObject? geometry, TPrope
 /// <summary>
 /// Reporesents a collection of Feature geojson objects.
 /// </summary>
+/// <typeparam name="TGeometry">The type used for each feature Geometry property.</typeparam>
 /// <typeparam name="TFeatureProperties">The type used for each feature Properties property.</typeparam>
-public sealed class FeatureCollection<TFeatureProperties>(IList<Feature<TFeatureProperties>> features) : GeoJsonObject
+public sealed class FeatureCollection<TGeometry, TFeatureProperties>(IList<Feature<TGeometry, TFeatureProperties>> features) : GeoJsonObject
     where TFeatureProperties : class
+    where TGeometry : GeometryGeoJsonObject
 {
     internal override GeoJsonObjectTypes Type => GeoJsonObjectTypes.FeatureCollection;
 
     [JsonPropertyName("features")]
-    public IList<Feature<TFeatureProperties>> Features { get; } = features;
+    public IList<Feature<TGeometry, TFeatureProperties>> Features { get; } = features;
 }

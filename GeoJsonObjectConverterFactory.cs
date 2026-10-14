@@ -20,10 +20,10 @@ public sealed class GeoJsonObjectConverterFactory : JsonConverterFactory
         if (typeToConvert.IsGenericType)
         {
             Type genericDef = typeToConvert.GetGenericTypeDefinition();
-            if (genericDef == typeof(Feature<>) || genericDef == typeof(FeatureCollection<>))
+            if (genericDef == typeof(Feature<,>) || genericDef == typeof(FeatureCollection<,>))
             {
                 Type[] genericArgs = typeToConvert.GetGenericArguments();
-                Type closedConverterType = typeof(GeoJsonFeaturesConverter<>).MakeGenericType(genericArgs);
+                Type closedConverterType = typeof(GeoJsonFeaturesConverter<,>).MakeGenericType(genericArgs);
                 return (JsonConverter?)Activator.CreateInstance(closedConverterType);
             }
         }

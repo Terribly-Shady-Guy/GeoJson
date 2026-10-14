@@ -3,8 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace GeoJson;
 
-public sealed class GeoJsonFeaturesConverter<TProperties> : JsonConverter<GeoJsonObject>
+public sealed class GeoJsonFeaturesConverter<TGeometry, TProperties> : JsonConverter<GeoJsonObject>
     where TProperties : class
+    where TGeometry : GeometryGeoJsonObject
 {
     public override GeoJsonObject? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
@@ -21,8 +22,8 @@ public sealed class GeoJsonFeaturesConverter<TProperties> : JsonConverter<GeoJso
 
         return geoJsonType switch
         {
-            GeoJsonObjectTypes.Feature => root.Deserialize<Feature<TProperties>>(options),
-            GeoJsonObjectTypes.FeatureCollection => root.Deserialize<FeatureCollection<TProperties>>(options),
+            GeoJsonObjectTypes.Feature => root.Deserialize<Feature<TGeometry, TProperties>>(options),
+            GeoJsonObjectTypes.FeatureCollection => root.Deserialize<FeatureCollection<TGeometry, TProperties>>(options),
             _ => null
         };
     }
@@ -30,10 +31,10 @@ public sealed class GeoJsonFeaturesConverter<TProperties> : JsonConverter<GeoJso
     {
         switch (value)
         {
-            case Feature<TProperties> feature:
+            case Feature<TGeometry, TProperties> feature:
                 JsonSerializer.Serialize(writer, feature, options);
                 break;
-            case FeatureCollection<TProperties> featureCollection:
+            case FeatureCollection<TGeometry, TProperties> featureCollection:
                 JsonSerializer.Serialize(writer, featureCollection, options);
                 break;
             default:
