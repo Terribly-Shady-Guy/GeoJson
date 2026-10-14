@@ -5,7 +5,7 @@ namespace GeoJson;
 /// <summary>
 /// A marker interface representing a geometry geojson type.
 /// </summary>
-[JsonConverter(typeof(GeometryGeoJsonObjectJsonConverter))]
+[JsonConverter(typeof(GeometryGeoJsonConverter))]
 public abstract class GeometryGeoJsonObject : GeoJsonObject;
 
 /// <summary>

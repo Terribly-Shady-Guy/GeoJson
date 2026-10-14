@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace GeoJson;
 
-public sealed class GeometryGeoJsonObjectJsonConverter : JsonConverter<GeometryGeoJsonObject>
+public sealed class GeometryGeoJsonConverter : JsonConverter<GeometryGeoJsonObject>
 {
     public override GeometryGeoJsonObject? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

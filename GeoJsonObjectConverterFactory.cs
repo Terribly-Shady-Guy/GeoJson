@@ -14,7 +14,7 @@ public sealed class GeoJsonObjectConverterFactory : JsonConverterFactory
     {
         if (typeof(GeometryGeoJsonObject).IsAssignableFrom(typeToConvert))
         {
-            return new GeometryGeoJsonObjectJsonConverter();
+            return new GeometryGeoJsonConverter();
         }
         
         if (typeToConvert.IsGenericType)
