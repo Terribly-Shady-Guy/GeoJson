@@ -7,7 +7,7 @@ namespace GeoJson;
 /// </summary>
 /// <typeparam name="TGeometry">The type representing the Geometry property.</typeparam>
 /// <typeparam name="TProperties">The type representing the Properties property.</typeparam>
-public sealed class Feature<TGeometry, TProperties>(TGeometry geometry, TProperties properties) : GeoJsonObject
+public sealed class Feature<TGeometry, TProperties> : GeoJsonObject
     where TProperties : class?
     where TGeometry : GeometryGeoJsonObject?
 {
@@ -16,11 +16,11 @@ public sealed class Feature<TGeometry, TProperties>(TGeometry geometry, TPropert
 
     [JsonPropertyName("geometry")]
     [JsonPropertyOrder(2)]
-    public TGeometry Geometry { get; } = geometry;
+    public required TGeometry Geometry { get; init; }
 
     [JsonPropertyName("properties")]
     [JsonPropertyOrder(3)]
-    public TProperties Properties { get; } = properties;
+    public required TProperties Properties { get; init; }
 }
 
 /// <summary>
@@ -28,7 +28,7 @@ public sealed class Feature<TGeometry, TProperties>(TGeometry geometry, TPropert
 /// </summary>
 /// <typeparam name="TGeometry">The type used for each feature Geometry property.</typeparam>
 /// <typeparam name="TFeatureProperties">The type used for each feature Properties property.</typeparam>
-public sealed class FeatureCollection<TGeometry, TFeatureProperties>(IList<Feature<TGeometry, TFeatureProperties>> features) : GeoJsonObject
+public sealed class FeatureCollection<TGeometry, TFeatureProperties> : GeoJsonObject
     where TFeatureProperties : class?
     where TGeometry : GeometryGeoJsonObject?
 {
@@ -37,5 +37,5 @@ public sealed class FeatureCollection<TGeometry, TFeatureProperties>(IList<Featu
 
     [JsonPropertyName("features")]
     [JsonPropertyOrder(2)]
-    public IList<Feature<TGeometry, TFeatureProperties>> Features { get; } = features;
+    public required IList<Feature<TGeometry, TFeatureProperties>> Features { get; init; }
 }
