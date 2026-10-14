@@ -13,6 +13,7 @@ public abstract class GeometryGeoJsonObject : GeoJsonObject;
 /// </summary>
 public sealed class PointGeometry(Position coordinates) : GeometryGeoJsonObject
 {
+    [JsonPropertyName("type")]
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.Point;
 
     [JsonPropertyName("coordinates")]
@@ -25,6 +26,7 @@ public sealed class PointGeometry(Position coordinates) : GeometryGeoJsonObject
 /// </summary>
 public sealed class MultiPointGeometry(IList<Position> coordinates) : GeometryGeoJsonObject
 {
+    [JsonPropertyName("type")]
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.MultiPoint;
 
     [JsonPropertyName("coordinates")]
@@ -37,6 +39,7 @@ public sealed class MultiPointGeometry(IList<Position> coordinates) : GeometryGe
 /// </summary>
 public sealed class LineStringGeometry(IList<Position> coordinates) : GeometryGeoJsonObject  
 {
+    [JsonPropertyName("type")]
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.LineString;
 
     [JsonPropertyName("coordinates")]
@@ -50,6 +53,7 @@ public sealed class LineStringGeometry(IList<Position> coordinates) : GeometryGe
 /// </summary>
 public sealed class MultiLineStringGeometry(IList<IList<Position>> coordinates) : GeometryGeoJsonObject
 {
+    [JsonPropertyName("type")]
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.MultiLineString;
 
     [JsonPropertyName("coordinates")]
@@ -62,6 +66,7 @@ public sealed class MultiLineStringGeometry(IList<IList<Position>> coordinates) 
 /// </summary>
 public sealed class PolygonGeometry(IList<IList<Position>> coordinates) : GeometryGeoJsonObject
 {
+    [JsonPropertyName("type")]
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.Polygon;
 
     [JsonPropertyName("coordinates")]
@@ -74,6 +79,7 @@ public sealed class PolygonGeometry(IList<IList<Position>> coordinates) : Geomet
 /// </summary>
 public sealed class MultiPolygonGeometry(IList<IList<IList<Position>>> coordinates) : GeometryGeoJsonObject
 {
+    [JsonPropertyName("type")]
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.MultiPolygon;
 
     [JsonPropertyName("coordinates")]
@@ -86,6 +92,7 @@ public sealed class MultiPolygonGeometry(IList<IList<IList<Position>>> coordinat
 /// </summary>
 public sealed class GeometryCollection(IList<GeometryGeoJsonObject> geometries) : GeometryGeoJsonObject
 {
+    [JsonPropertyName("type")]
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.GeometryCollection;
 
     [JsonPropertyName("geometries")]

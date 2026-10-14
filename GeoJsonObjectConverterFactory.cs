@@ -7,7 +7,7 @@ public sealed class GeoJsonObjectConverterFactory : JsonConverterFactory
 {
     public override bool CanConvert(Type typeToConvert)
     {
-        return typeof(GeoJsonObject).IsAssignableFrom(typeToConvert);
+        return typeof(GeoJsonObject).IsAssignableFrom(typeToConvert) && typeToConvert != typeof(GeoJsonObject);
     }
 
     public override JsonConverter? CreateConverter(Type typeToConvert, JsonSerializerOptions options)
