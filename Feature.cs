@@ -14,8 +14,10 @@ public sealed class Feature<TGeometry, TProperties>(TGeometry? geometry, TProper
     internal override GeoJsonObjectTypes Type => GeoJsonObjectTypes.Feature;
 
     [JsonPropertyName("geometry")]
+    [JsonPropertyOrder(2)]
     public TGeometry? Geometry { get; } = geometry;
     [JsonPropertyName("properties")]
+    [JsonPropertyOrder(3)]
     public TProperties Properties { get; } = properties;
 }
 
@@ -31,5 +33,6 @@ public sealed class FeatureCollection<TGeometry, TFeatureProperties>(IList<Featu
     internal override GeoJsonObjectTypes Type => GeoJsonObjectTypes.FeatureCollection;
 
     [JsonPropertyName("features")]
+    [JsonPropertyOrder(2)]
     public IList<Feature<TGeometry, TFeatureProperties>> Features { get; } = features;
 }

@@ -11,12 +11,12 @@ public abstract class GeoJsonObject
 {
     [JsonInclude]
     [JsonPropertyName("type")]
-    [JsonPropertyOrder(-100)]
+    [JsonPropertyOrder(0)]
     internal abstract GeoJsonObjectTypes Type { get; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("bbox")]
-    [JsonPropertyOrder(-99)]
+    [JsonPropertyOrder(1)]
     public BoundingBox? Bbox { get; init; } = null;
 
     [JsonExtensionData]
