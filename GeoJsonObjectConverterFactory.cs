@@ -12,7 +12,7 @@ public sealed class GeoJsonObjectConverterFactory : JsonConverterFactory
 
     public override JsonConverter? CreateConverter(Type typeToConvert, JsonSerializerOptions options)
     {
-        if (typeToConvert.IsAssignableFrom(typeof(GeometryGeoJsonObject)))
+        if (typeof(GeometryGeoJsonObject).IsAssignableFrom(typeToConvert))
         {
             return new GeometryGeoJsonObjectJsonConverter();
         }

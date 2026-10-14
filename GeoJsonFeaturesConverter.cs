@@ -4,8 +4,8 @@ using System.Text.Json.Serialization;
 namespace GeoJson;
 
 public sealed class GeoJsonFeaturesConverter<TGeometry, TProperties> : JsonConverter<GeoJsonObject>
-    where TProperties : class
-    where TGeometry : GeometryGeoJsonObject
+    where TProperties : class?
+    where TGeometry : GeometryGeoJsonObject?
 {
     public override GeoJsonObject? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
