@@ -7,18 +7,13 @@ namespace GeoJson;
 /// Represents a bounding box for a geojson type.
 /// </summary>
 [JsonConverter(typeof(BoundingBoxConverter))]
-public abstract record BoundingBox
+public record BoundingBox
 {
     public required double MinLongitude { get; init; }
     public required double MinLatitude { get; init; }
     public required double MaxLongitude { get; init; }
     public required double MaxLatitude { get; init; }
 }
-
-/// <summary>
-/// Represents a 2D bounding box for a geojson type.
-/// </summary>
-public sealed record BoundingBox2D : BoundingBox;
 
 /// <summary>
 /// Represents a 3D bounding box for a geojson type.
@@ -48,7 +43,7 @@ public class BoundingBoxConverter : JsonConverter<BoundingBox>
 
         return count switch
         {
-            4 => new BoundingBox2D
+            4 => new BoundingBox
             {
                 MinLongitude = bboxBuffer[0],
                 MinLatitude = bboxBuffer[1],
