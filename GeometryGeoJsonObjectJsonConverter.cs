@@ -35,26 +35,26 @@ public sealed class GeometryGeoJsonObjectJsonConverter : JsonConverter<GeometryG
     {
         switch (value)
         {
-            case PointGeometry:
-                JsonSerializer.Serialize(writer: writer, (PointGeometry)value, options);
+            case PointGeometry point:
+                JsonSerializer.Serialize(writer: writer, point, options);
                 break;
-            case MultiPointGeometry:
-                JsonSerializer.Serialize(writer: writer, (MultiPointGeometry)value, options);
+            case MultiPointGeometry multiPoint:
+                JsonSerializer.Serialize(writer: writer, multiPoint, options);
                 break;
-            case LineStringGeometry:
-                JsonSerializer.Serialize(writer: writer, (LineStringGeometry)value, options);
+            case LineStringGeometry lineString:
+                JsonSerializer.Serialize(writer: writer, lineString, options);
                 break;
-            case MultiLineStringGeometry:
-                JsonSerializer.Serialize(writer: writer, (MultiLineStringGeometry)value, options);
+            case MultiLineStringGeometry multiLineString:
+                JsonSerializer.Serialize(writer: writer, multiLineString, options);
                 break;
-            case PolygonGeometry:
-                JsonSerializer.Serialize(writer: writer, (PolygonGeometry)value, options);
+            case PolygonGeometry polygon:
+                JsonSerializer.Serialize(writer: writer, polygon, options);
                 break;
-            case MultiPolygonGeometry:
-                JsonSerializer.Serialize(writer: writer, (MultiPolygonGeometry)value, options);
+            case MultiPolygonGeometry multiPolygon:
+                JsonSerializer.Serialize(writer: writer, multiPolygon, options);
                 break;
-            case GeometryCollection:
-                JsonSerializer.Serialize(writer: writer, (GeometryCollection)value, options);
+            case GeometryCollection geometryCollection:
+                JsonSerializer.Serialize(writer: writer, geometryCollection, options);
                 break;
             default:
                 throw new NotSupportedException($"The geometry type '{value.GetType().Name}' is not supported for serialization.");
