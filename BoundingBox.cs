@@ -18,7 +18,7 @@ public record BoundingBox
 /// <summary>
 /// Represents a 3D bounding box for a geojson type.
 /// </summary>
-public sealed record BoundingBox3D : BoundingBox
+public record BoundingBox3D : BoundingBox
 {
     public required double MinAltitude { get; init; }
     public required double MaxAltitude { get; init; }
