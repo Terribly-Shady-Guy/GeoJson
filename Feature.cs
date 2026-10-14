@@ -16,6 +16,7 @@ public sealed class Feature<TGeometry, TProperties>(TGeometry? geometry, TProper
     [JsonPropertyName("geometry")]
     [JsonPropertyOrder(2)]
     public TGeometry? Geometry { get; } = geometry;
+
     [JsonPropertyName("properties")]
     [JsonPropertyOrder(3)]
     public TProperties Properties { get; } = properties;
