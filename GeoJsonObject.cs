@@ -9,10 +9,9 @@ namespace GeoJson;
 [JsonConverter(typeof(GeoJsonObjectConverterFactory))]
 public abstract class GeoJsonObject
 {
-    [JsonInclude]
     [JsonPropertyName("type")]
     [JsonPropertyOrder(0)]
-    internal abstract GeoJsonObjectTypes Type { get; }
+    public abstract GeoJsonObjectTypes Type { get; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("bbox")]

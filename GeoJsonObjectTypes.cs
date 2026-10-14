@@ -3,7 +3,7 @@
 namespace GeoJson;
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
-internal enum GeoJsonObjectTypes
+public enum GeoJsonObjectTypes
 {
     Point = 0,
     MultiPoint = 1,
