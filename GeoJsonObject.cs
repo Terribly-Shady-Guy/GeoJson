@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+﻿using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
 namespace GeoJson;
@@ -19,5 +19,5 @@ public abstract class GeoJsonObject
     public BoundingBox? Bbox { get; init; } = null;
 
     [JsonExtensionData]
-    public IDictionary<string, JsonElement>? ForeignMembers { get; init; } = null;
+    public IDictionary<string, object?>? ForeignMembers { get; init; } = null;
 }
