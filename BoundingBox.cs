@@ -41,6 +41,11 @@ public class BoundingBoxConverter : JsonConverter<BoundingBox>
             bboxBuffer[count] = reader.GetDouble();
         }
 
+        if (reader.TokenType != JsonTokenType.EndArray)
+        {
+            throw new JsonException("bbox must not contain more than 6 elements.");
+        }
+
         return count switch
         {
             4 => new BoundingBox
