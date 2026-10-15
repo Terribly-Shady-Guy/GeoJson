@@ -32,6 +32,10 @@ public readonly record struct Position(double Longitude, double Latitude, double
 
 public sealed class PositionJsonConverter : JsonConverter<Position>
 {
+    private const int LatitudeIndex = 1;
+    private const int LongitudeIndex = 0;
+    private const int AltitudeIndex = 2;
+
     public override Position Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         if (reader.TokenType != JsonTokenType.StartArray)
@@ -47,13 +51,13 @@ public sealed class PositionJsonConverter : JsonConverter<Position>
         {
             switch (position)
             {
-                case 0:
+                case LongitudeIndex:
                     longitude = reader.GetDouble();
                     break;
-                case 1:
+                case LatitudeIndex:
                     latitude = reader.GetDouble();
                     break;
-                case 2:
+                case AltitudeIndex:
                     altitude = reader.GetDouble();
                     break;
                 default:
