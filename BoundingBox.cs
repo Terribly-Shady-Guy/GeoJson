@@ -32,11 +32,11 @@ public class BoundingBoxConverter : JsonConverter<BoundingBox>
         {
             throw new JsonException("bbox must be an array.");
         }
-        
+
         Span<double> bboxBuffer = stackalloc double[6];
 
         int count;
-        for (count = 0; count < bboxBuffer.Length && ShouldStillRead(reader); count++)
+        for (count = 0; count < bboxBuffer.Length && ShouldStillRead(ref reader); count++)
         {
             bboxBuffer[count] = reader.GetDouble();
         }
@@ -81,7 +81,7 @@ public class BoundingBoxConverter : JsonConverter<BoundingBox>
         writer.WriteEndArray();
     }
 
-    private static bool ShouldStillRead(Utf8JsonReader reader)
+    private static bool ShouldStillRead(ref Utf8JsonReader reader)
     {
         return reader.Read() && reader.TokenType != JsonTokenType.EndArray;
     }
