@@ -23,6 +23,16 @@ public readonly record struct Position(double Longitude, double Latitude, double
             return [Longitude, Latitude];
         }
     }
+
+    public override string ToString()
+    {
+       if (Altitude != null)
+       {
+           return $"[{Longitude},{Latitude},{Altitude}]";
+       }
+
+       return $"[{Longitude},{Latitude}]";
+    }
 }
 
 public sealed class PositionJsonConverter : JsonConverter<Position>
