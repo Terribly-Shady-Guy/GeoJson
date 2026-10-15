@@ -13,6 +13,11 @@ public record BoundingBox
     public required double MinLatitude { get; init; }
     public required double MaxLongitude { get; init; }
     public required double MaxLatitude { get; init; }
+
+    public virtual double[] ToArray()
+    {
+        return [MinLongitude, MinLatitude, MaxLongitude, MaxLatitude];
+    }
 }
 
 /// <summary>
@@ -22,6 +27,11 @@ public record BoundingBox3D : BoundingBox
 {
     public required double MinAltitude { get; init; }
     public required double MaxAltitude { get; init; }
+
+    public override double[] ToArray()
+    {
+        return [MinLongitude, MinLatitude, MinAltitude, MaxLongitude, MaxLatitude, MaxAltitude];
+    }
 }
 
 public class BoundingBoxConverter : JsonConverter<BoundingBox>

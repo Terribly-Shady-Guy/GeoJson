@@ -10,7 +10,20 @@ namespace GeoJson;
 /// <param name="Latitude">The point's latitude. This will be the second element in a position array.</param>
 /// <param name="Altitude">An optional altitude. This will be the last element in a position array if used.</param>
 [JsonConverter(typeof(PositionJsonConverter))]
-public readonly record struct Position(double Longitude, double Latitude, double? Altitude = null);
+public readonly record struct Position(double Longitude, double Latitude, double? Altitude = null)
+{
+    public double[] ToArray()
+    {
+        if (Altitude != null)
+        {
+            return [Longitude, Latitude, (double)Altitude];
+        }
+        else
+        {
+            return [Longitude, Latitude];
+        }
+    }
+}
 
 public sealed class PositionJsonConverter : JsonConverter<Position>
 {
