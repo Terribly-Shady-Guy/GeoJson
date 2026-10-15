@@ -26,12 +26,7 @@ public readonly record struct Position(double Longitude, double Latitude, double
 
     public override string ToString()
     {
-       if (Altitude != null)
-       {
-           return $"[{Longitude},{Latitude},{Altitude}]";
-       }
-
-       return $"[{Longitude},{Latitude}]";
+       return Altitude != null ? $"{Longitude},{Latitude},{Altitude}" : $"{Longitude},{Latitude}";
     }
 }
 
@@ -48,14 +43,8 @@ public sealed class PositionJsonConverter : JsonConverter<Position>
         double longitude = 0;
         double? altitude = null;
 
-        int position = 0;
-        while (reader.Read() && reader.TokenType != JsonTokenType.EndArray)
+        for (int position = 0; reader.Read() && reader.TokenType != JsonTokenType.EndArray; position++)
         {
-            if (position > 2)
-            {
-                ThrowJsonExceptionForInvalidSize();
-            }
-
             switch (position)
             {
                 case 0:
@@ -67,14 +56,10 @@ public sealed class PositionJsonConverter : JsonConverter<Position>
                 case 2:
                     altitude = reader.GetDouble();
                     break;
+                default:
+                    ThrowJsonExceptionForInvalidSize();
+                    break;
             }
-
-            position++;
-        }
-
-        if (position < 1)
-        {
-            ThrowJsonExceptionForInvalidSize();
         }
 
         return new Position(longitude, latitude, altitude);
