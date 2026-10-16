@@ -10,7 +10,11 @@ public sealed class GeometryGeoJsonConverter : JsonConverter<GeometryGeoJsonObje
         using var document = JsonDocument.ParseValue(ref reader);
         JsonElement root = document.RootElement;
 
-        JsonElement typeProperty = root.GetProperty("type");
+        if (!root.TryGetProperty("type", out JsonElement typeProperty))
+        {
+            throw new JsonException("Missing 'type' property in GeoJSON object.");
+        }
+
         string? unparsedType = typeProperty.GetString();
 
         if (!Enum.TryParse(unparsedType, out GeoJsonObjectTypes type))
