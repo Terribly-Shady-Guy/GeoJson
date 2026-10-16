@@ -18,10 +18,8 @@ public readonly record struct Position(double Longitude, double Latitude, double
         {
             return [Longitude, Latitude, (double)Altitude];
         }
-        else
-        {
-            return [Longitude, Latitude];
-        }
+
+        return [Longitude, Latitude];
     }
 
     public override string ToString()
