@@ -15,7 +15,7 @@ public sealed class GeoJsonFeaturesConverter<TGeometry, TProperties> : JsonConve
         JsonElement typeProperty = root.GetProperty("type");
         string? unparsedType = typeProperty.GetString();
 
-        if (!Enum.TryParse<GeoJsonObjectTypes>(unparsedType, out var geoJsonType))
+        if (!Enum.TryParse(unparsedType, out GeoJsonObjectTypes geoJsonType))
         {
             throw new JsonException($"Invalid GeoJSON type: {unparsedType}");
         }
