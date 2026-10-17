@@ -45,10 +45,11 @@ public class BoundingBoxConverter : JsonConverter<BoundingBox>
 
         Span<double> bboxBuffer = stackalloc double[6];
 
-        int count;
-        for (count = 0; count < bboxBuffer.Length && ShouldStillRead(ref reader); count++)
+        int count = 0;
+        while (count < bboxBuffer.Length && ShouldStillRead(ref reader))
         {
             bboxBuffer[count] = reader.GetDouble();
+            count++;
         }
 
         if (reader.TokenType != JsonTokenType.EndArray)

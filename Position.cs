@@ -45,8 +45,8 @@ public sealed class PositionJsonConverter : JsonConverter<Position>
         double longitude = 0;
         double? altitude = null;
 
-        int position;
-        for (position = 0; reader.Read() && reader.TokenType != JsonTokenType.EndArray; position++)
+        int position = 0;
+        while (reader.Read() && reader.TokenType != JsonTokenType.EndArray)
         {
             switch (position)
             {
@@ -63,6 +63,8 @@ public sealed class PositionJsonConverter : JsonConverter<Position>
                     ThrowJsonExceptionForInvalidSize();
                     break;
             }
+
+            position++;
         }
 
         if (position < 1)
