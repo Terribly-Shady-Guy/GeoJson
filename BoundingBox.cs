@@ -18,6 +18,11 @@ public record BoundingBox
     {
         return [West, South, East, North];
     }
+
+    public override string ToString()
+    {
+        return $"[{West},{South},{East},{North}]";
+    }
 }
 
 /// <summary>
@@ -31,6 +36,11 @@ public record BoundingBox3D : BoundingBox
     public override double[] ToArray()
     {
         return [West, South, MinAltitude, East, North, MaxAltitude];
+    }
+
+    public override string ToString()
+    {
+        return $"[{West},{South},{MinAltitude},{East},{North},{MaxAltitude}]";
     }
 }
 
