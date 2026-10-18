@@ -15,7 +15,7 @@ public sealed class Feature<TGeometry, TProperties> : GeoJsonObject
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.Feature;
 
     /// <summary>
-    /// Unique identifier for the resource.
+    /// Unique identifier for the feature.
     /// </summary>
     /// <remarks>
     /// This field is optional and can be null. If null, this property will be omitted from the JSON output. 
