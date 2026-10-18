@@ -9,14 +9,14 @@ namespace GeoJson;
 [JsonConverter(typeof(BoundingBoxConverter))]
 public record BoundingBox
 {
-    public required double MinLongitude { get; init; }
-    public required double MinLatitude { get; init; }
-    public required double MaxLongitude { get; init; }
-    public required double MaxLatitude { get; init; }
+    public required double West { get; init; }
+    public required double South { get; init; }
+    public required double East { get; init; }
+    public required double North { get; init; }
 
     public virtual double[] ToArray()
     {
-        return [MinLongitude, MinLatitude, MaxLongitude, MaxLatitude];
+        return [West, South, East, North];
     }
 }
 
@@ -30,7 +30,7 @@ public record BoundingBox3D : BoundingBox
 
     public override double[] ToArray()
     {
-        return [MinLongitude, MinLatitude, MinAltitude, MaxLongitude, MaxLatitude, MaxAltitude];
+        return [West, South, MinAltitude, East, North, MaxAltitude];
     }
 }
 
@@ -61,18 +61,18 @@ public class BoundingBoxConverter : JsonConverter<BoundingBox>
         {
             4 => new BoundingBox
             {
-                MinLongitude = bboxBuffer[0],
-                MinLatitude = bboxBuffer[1],
-                MaxLongitude = bboxBuffer[2],
-                MaxLatitude = bboxBuffer[3],
+                West = bboxBuffer[0],
+                South = bboxBuffer[1],
+                East = bboxBuffer[2],
+                North = bboxBuffer[3],
             },
             6 => new BoundingBox3D
             {
-                MinLongitude = bboxBuffer[0],
-                MinLatitude = bboxBuffer[1],
+                West = bboxBuffer[0],
+                South = bboxBuffer[1],
                 MinAltitude = bboxBuffer[2],
-                MaxLongitude = bboxBuffer[3],
-                MaxLatitude = bboxBuffer[4],
+                East = bboxBuffer[3],
+                North = bboxBuffer[4],
                 MaxAltitude = bboxBuffer[5]
             },
             _ => throw new JsonException("A valid bbox must contain 4 or 6 elements.")
@@ -84,13 +84,13 @@ public class BoundingBoxConverter : JsonConverter<BoundingBox>
         BoundingBox3D? box3D = value as BoundingBox3D;
         writer.WriteStartArray();
 
-        writer.WriteNumberValue(value.MinLongitude);
-        writer.WriteNumberValue(value.MinLatitude);
+        writer.WriteNumberValue(value.West);
+        writer.WriteNumberValue(value.South);
 
         if (box3D != null) writer.WriteNumberValue(box3D.MinAltitude);
 
-        writer.WriteNumberValue(value.MaxLongitude);
-        writer.WriteNumberValue(value.MaxLatitude);
+        writer.WriteNumberValue(value.East);
+        writer.WriteNumberValue(value.North);
 
         if (box3D != null) writer.WriteNumberValue(box3D.MaxAltitude);
 
