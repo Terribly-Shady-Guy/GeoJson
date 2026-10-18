@@ -15,17 +15,29 @@ public sealed class Feature<TGeometry, TProperties> : GeoJsonObject
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.Feature;
 
     /// <summary>
+    /// Unique identifier for the resource.
+    /// </summary>
+    /// <remarks>
+    /// This field is optional and can be null. If null, this property will be omitted from the JSON output. 
+    /// <para>The type will be updated to use a union type in a future version.</para>
+    /// </remarks>
+    [JsonPropertyName("id")]
+    [JsonPropertyOrder(2)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Id { get; init; } = null;
+
+    /// <summary>
     /// Represents the "geometry" property in a feature. This will contain a <see cref="GeometryGeoJsonObject"/> that maps to a supported geometry type listed in the rfc standard.
     /// </summary>
     [JsonPropertyName("geometry")]
-    [JsonPropertyOrder(2)]
+    [JsonPropertyOrder(3)]
     public required TGeometry Geometry { get; init; }
 
     /// <summary>
     /// Represents the "properties" property in a feature. This will contain a user defined type that maps to the properties of the feature. This can be null if the feature has no properties.
     /// </summary>
     [JsonPropertyName("properties")]
-    [JsonPropertyOrder(3)]
+    [JsonPropertyOrder(4)]
     public required TProperties Properties { get; init; }
 }
 
