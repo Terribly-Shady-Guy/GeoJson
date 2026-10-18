@@ -19,7 +19,7 @@ public sealed class Feature<TGeometry, TProperties> : GeoJsonObject
     /// </summary>
     /// <remarks>
     /// This field is optional and can be null. If null, this property will be omitted from the JSON output. 
-    /// <para>The type will be updated to use a union type in a future version.</para>
+    /// <para>The type will be updated to use a union type of string or long in a future version.</para>
     /// </remarks>
     [JsonPropertyName("id")]
     [JsonPropertyOrder(2)]
