@@ -5,8 +5,8 @@ namespace GeoJson;
 /// <summary>
 /// Represents a Feature geojson object type.
 /// </summary>
-/// <typeparam name="TGeometry">The type representing the Geometry property.</typeparam>
-/// <typeparam name="TProperties">The type representing the Properties property.</typeparam>
+/// <typeparam name="TGeometry">The type representing the Geometry property. Can be nullable.</typeparam>
+/// <typeparam name="TProperties">The type representing the Properties property. Can be nullable.</typeparam>
 public sealed class Feature<TGeometry, TProperties> : GeoJsonObject
     where TProperties : class?
     where TGeometry : GeometryGeoJsonObject?
@@ -44,8 +44,8 @@ public sealed class Feature<TGeometry, TProperties> : GeoJsonObject
 /// <summary>
 /// Reporesents a collection of Feature geojson objects.
 /// </summary>
-/// <typeparam name="TGeometry">The type used for each feature Geometry property.</typeparam>
-/// <typeparam name="TFeatureProperties">The type used for each feature Properties property.</typeparam>
+/// <typeparam name="TGeometry">The type used for each feature Geometry property. Can be nullable.</typeparam>
+/// <typeparam name="TFeatureProperties">The type used for each feature Properties property. Can be nullable.</typeparam>
 public sealed class FeatureCollection<TGeometry, TFeatureProperties> : GeoJsonObject
     where TFeatureProperties : class?
     where TGeometry : GeometryGeoJsonObject?
