@@ -21,6 +21,10 @@ public readonly struct FeatureIdentifier
     private readonly string _stringValue;
     private readonly FeatureIdentifierType _tag;
 
+    /// <summary>
+    /// Initializes an instance of <see cref="FeatureIdentifier"/> as a <see cref="double"/>.
+    /// </summary>
+    /// <param name="id">The double value to initialize with.</param>
     public FeatureIdentifier(double id)
     {
         _doubleValue = id;
@@ -28,6 +32,10 @@ public readonly struct FeatureIdentifier
         _tag = FeatureIdentifierType.Double;
     }
 
+    /// <summary>
+    /// Initializes an instance of <see cref="FeatureIdentifier"/> as a <see cref="string"/>.
+    /// </summary>
+    /// <param name="id">The string to initialize with.</param>
     public FeatureIdentifier(string id)
     {
         _doubleValue = default;
@@ -35,6 +43,9 @@ public readonly struct FeatureIdentifier
         _tag = FeatureIdentifierType.String;
     }
 
+    /// <summary>
+    /// Gets the underlying value of the instance.
+    /// </summary>
     public readonly object? Value => _tag switch
     {
         FeatureIdentifierType.Double => _doubleValue,
@@ -42,6 +53,11 @@ public readonly struct FeatureIdentifier
         _ => null
     };
 
+    /// <summary>
+    /// Attempts to unwrap the <see cref="FeatureIdentifier"/> to its underlying <see cref="double"/>.
+    /// </summary>
+    /// <param name="id">The double value to unwrap.</param>
+    /// <returns>True if the unwrap was successful; otherwise, false.</returns>
     public bool TryGetValue(out double id)
     {
         if (_tag != FeatureIdentifierType.Double)
@@ -54,6 +70,11 @@ public readonly struct FeatureIdentifier
         return true;
     }
 
+    /// <summary>
+    /// Attempts to unwrap the <see cref="FeatureIdentifier"/> to its underlying <see cref="string"/>.
+    /// </summary>
+    /// <param name="id">The string value to unwrap.</param>
+    /// <returns>True if the unwrap was successful; otherwise, false.</returns>
     public bool TryGetValue([NotNullWhen(true)] out string? id)
     {
         if (_tag != FeatureIdentifierType.String)
