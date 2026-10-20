@@ -19,12 +19,11 @@ public sealed class Feature<TGeometry, TProperties> : GeoJsonObject
     /// </summary>
     /// <remarks>
     /// This field is optional and can be null. If null, this property will be omitted from the JSON output. 
-    /// <para>The type will be updated to use a union type of string or long in a future version.</para>
     /// </remarks>
     [JsonPropertyName("id")]
     [JsonPropertyOrder(2)]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public FeatureIdentifier? Id { get; init; } = null; // update the type to use a union type when .net 11 releases.
+    public FeatureIdentifier? Id { get; init; } = null;
 
     /// <summary>
     /// Represents the "geometry" property in a feature. This will contain a <see cref="GeometryGeoJsonObject"/> that maps to a supported geometry type listed in the rfc standard.
