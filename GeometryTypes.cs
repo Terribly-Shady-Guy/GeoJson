@@ -87,7 +87,6 @@ public sealed class MultiLineStringGeometry : GeometryGeoJsonObject
 /// <item>A linear ring's first and last positions must be identical, and have at least four positions.</item>
 /// <item>A Polygon should follow the right-hand rule. The exterior ring should be oriented counterclockwise, and the interior rings should be oriented clockwise.</item>
 /// </list>
-/// The rfc 7946 standard states that the right-hand rule is not strictly enforced to allow backwards compatibility, but it is recommended for consistency.
 /// </remarks>
 /// 
 public sealed class PolygonGeometry : GeometryGeoJsonObject

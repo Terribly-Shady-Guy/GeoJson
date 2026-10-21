@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
 namespace GeoJson;
@@ -8,33 +9,25 @@ public sealed class GeoJsonObjectConverter : JsonConverter<GeoJsonObject>
     public override GeoJsonObject? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         using var document = JsonDocument.ParseValue(ref reader);
-        JsonElement root = document.RootElement;
-
-        if (!root.TryGetProperty("type", out JsonElement typeProperty))
+        if (!document.RootElement.TryGetProperty("type", out JsonElement typeProperty))
         {
             throw new JsonException("Missing 'type' property in GeoJSON object.");
         }
 
         string? unparsedType = typeProperty.GetString();
-
         if (!Enum.TryParse(unparsedType, out GeoJsonObjectTypes geoJsonType))
         {
             throw new JsonException($"Invalid GeoJSON type: {unparsedType}");
         }
 
-        switch (geoJsonType)
+        return geoJsonType switch
         {
-            case GeoJsonObjectTypes.Feature:
-                Type feature = CreateGenericType(typeof(Feature<,>), typeToConvert);
-                return (GeoJsonObject?)root.Deserialize(feature, options);
-
-            case GeoJsonObjectTypes.FeatureCollection:
-                Type featureCollection = CreateGenericType(typeof(FeatureCollection<,>), typeToConvert);
-                return (GeoJsonObject?)root.Deserialize(featureCollection, options);
-
-            default:
-                return GeometryGeoJsonObjectFactory.Create(document, geoJsonType, options);
-        }
+            GeoJsonObjectTypes.Feature => document.RootElement
+                .Deserialize<Feature<GeometryGeoJsonObject?, JsonObject?>>(options),
+            GeoJsonObjectTypes.FeatureCollection => document.RootElement
+                .Deserialize<FeatureCollection<GeometryGeoJsonObject?, JsonObject?>>(options),
+            _ => GeometryGeoJsonObjectFactory.Create(document, geoJsonType, options),
+        };
     }
 
     public override void Write(Utf8JsonWriter writer, GeoJsonObject value, JsonSerializerOptions options)
@@ -45,7 +38,7 @@ public sealed class GeoJsonObjectConverter : JsonConverter<GeoJsonObject>
         {
             case { Type: GeoJsonObjectTypes.Feature }:
                 Type feature = CreateGenericType(typeof(Feature<,>), valueType);
-                JsonSerializer.Serialize(writer, value, feature,  options);
+                JsonSerializer.Serialize(writer, value, feature, options);
                 break;
 
             case { Type: GeoJsonObjectTypes.FeatureCollection }:
