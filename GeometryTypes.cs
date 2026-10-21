@@ -3,7 +3,7 @@
 namespace GeoJson;
 
 /// <summary>
-/// A marker class representing a geometry geojson type.
+/// A marker class representing a geometry GeoJSON type.
 /// </summary>
 /// <remarks>
 /// You should not directly inherit this class. Inheriting this class directly implies extending the type property which is not supported in rfc 7946.
@@ -13,7 +13,7 @@ namespace GeoJson;
 public abstract class GeometryGeoJsonObject : GeoJsonObject;
 
 /// <summary>
-/// A geometry geojson type representing a single position.
+/// A geometry GeoJSON type representing a single position.
 /// </summary>
 public sealed class PointGeometry : GeometryGeoJsonObject
 {
@@ -30,7 +30,7 @@ public sealed class PointGeometry : GeometryGeoJsonObject
 }
 
 /// <summary>
-/// A geometry geojson type representing a collection of positions.
+/// A geometry GeoJSON type representing a collection of positions.
 /// </summary>
 public sealed class MultiPointGeometry : GeometryGeoJsonObject
 {
@@ -38,7 +38,7 @@ public sealed class MultiPointGeometry : GeometryGeoJsonObject
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.MultiPoint;
 
     /// <summary>
-    /// Represents the "coordinates" property in a geojson geometry object. For a "MultiPoint" type, it will contain an array of arbitrary position arrays.
+    /// Represents the "coordinates" property in a GeoJSON geometry object. For a "MultiPoint" type, it will contain an array of arbitrary position arrays.
     /// </summary>
     [JsonPropertyName("coordinates")]
     [JsonPropertyOrder(2)]
@@ -46,7 +46,7 @@ public sealed class MultiPointGeometry : GeometryGeoJsonObject
 }
 
 /// <summary>
-/// A geometry geojson type representing a sequence of positions.
+/// A geometry GeoJSON type representing a sequence of positions.
 /// </summary>
 public sealed class LineStringGeometry : GeometryGeoJsonObject
 {
@@ -54,7 +54,7 @@ public sealed class LineStringGeometry : GeometryGeoJsonObject
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.LineString;
 
     /// <summary>
-    /// Represents the "coordinates" property in a geojson geometry object. For a "LineString" type, it will contain an array of sequential position arrays.
+    /// Represents the "coordinates" property in a GeoJSON geometry object. For a "LineString" type, it will contain an array of sequential position arrays.
     /// </summary>
     [JsonPropertyName("coordinates")]
     [JsonPropertyOrder(2)]
@@ -62,7 +62,7 @@ public sealed class LineStringGeometry : GeometryGeoJsonObject
 }
 
 /// <summary>
-/// A geometry geojson type representing a collection of LineStrings.
+/// A geometry GeoJSON type representing a collection of LineStrings.
 /// </summary>
 public sealed class MultiLineStringGeometry : GeometryGeoJsonObject
 {
@@ -70,7 +70,7 @@ public sealed class MultiLineStringGeometry : GeometryGeoJsonObject
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.MultiLineString;
 
     /// <summary>
-    /// Represents the "coordinates" property in a geojson geometry object. For a "MultiLineString" type, it will contain an array of LineString arrays.
+    /// Represents the "coordinates" property in a GeoJSON geometry object. For a "MultiLineString" type, it will contain an array of LineString arrays.
     /// </summary>
     [JsonPropertyName("coordinates")]
     [JsonPropertyOrder(2)]
@@ -78,7 +78,7 @@ public sealed class MultiLineStringGeometry : GeometryGeoJsonObject
 }
 
 /// <summary>
-/// A geometry geojson type representing a Polygon.
+/// A geometry GeoJSON type representing a Polygon.
 /// </summary>
 /// <remarks>
 /// A valid Polygon must follow these rules:
@@ -95,7 +95,7 @@ public sealed class PolygonGeometry : GeometryGeoJsonObject
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.Polygon;
 
     /// <summary>
-    /// Represents the "coordinates" property in a geojson geometry object. For a "Polygon" type, it will contain an array of linear rings.
+    /// Represents the "coordinates" property in a GeoJSON geometry object. For a "Polygon" type, it will contain an array of linear rings.
     /// </summary>
     [JsonPropertyName("coordinates")]
     [JsonPropertyOrder(2)]
@@ -103,7 +103,7 @@ public sealed class PolygonGeometry : GeometryGeoJsonObject
 }
 
 /// <summary>
-/// A geometry geojson type representing a collection of polygons.
+/// A geometry GeoJSON type representing a collection of polygons.
 /// </summary>
 public sealed class MultiPolygonGeometry : GeometryGeoJsonObject
 {
@@ -111,7 +111,7 @@ public sealed class MultiPolygonGeometry : GeometryGeoJsonObject
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.MultiPolygon;
 
     /// <summary>
-    /// Represents the "coordinates" property in a geojson geometry object. For a "MultiPolygon" type, it will contain an array of polygons.
+    /// Represents the "coordinates" property in a GeoJSON geometry object. For a "MultiPolygon" type, it will contain an array of polygons.
     /// </summary>
     [JsonPropertyName("coordinates")]
     [JsonPropertyOrder(2)]
@@ -119,7 +119,7 @@ public sealed class MultiPolygonGeometry : GeometryGeoJsonObject
 }
 
 /// <summary>
-/// A geometry geojson type representing a collection of geometries.
+/// A geometry GeoJSON type representing a collection of geometries.
 /// </summary>
 public sealed class GeometryCollection : GeometryGeoJsonObject
 {
@@ -127,7 +127,7 @@ public sealed class GeometryCollection : GeometryGeoJsonObject
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.GeometryCollection;
 
     /// <summary>
-    /// Represents the "geometries" property in a GeometryCollection geojson object. This will contain a list of other geometry geojson types.
+    /// Represents the "geometries" property in a GeometryCollection GeoJSON object. This will contain a list of other geometry GeoJSON types.
     /// </summary>
     [JsonPropertyName("geometries")]
     [JsonPropertyOrder(2)]

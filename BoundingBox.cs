@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace GeoJson;
 
 /// <summary>
-/// Represents a bounding box for a geojson type.
+/// Represents a bounding box for a GeoJSON type.
 /// </summary>
 [JsonConverter(typeof(BoundingBoxConverter))]
 public record BoundingBox
@@ -26,7 +26,7 @@ public record BoundingBox
 }
 
 /// <summary>
-/// Represents a 3D bounding box for a geojson type.
+/// Represents a 3D bounding box for a GeoJSON type.
 /// </summary>
 public record BoundingBox3D : BoundingBox
 {
