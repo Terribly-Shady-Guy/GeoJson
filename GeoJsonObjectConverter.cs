@@ -65,6 +65,11 @@ public sealed class GeoJsonObjectConverter : JsonConverter<GeoJsonObject>
 
     private static Type CreateGenericType(Type generic, Type abstractType)
     {
+        if (!abstractType.IsGenericType || abstractType.GetGenericTypeDefinition() != generic)
+        {
+            throw new InvalidOperationException($"Type {abstractType.Name} is not generic type.");
+        }
+
         Type[] args = abstractType.GetGenericArguments();
         return generic.MakeGenericType(args);
     }
