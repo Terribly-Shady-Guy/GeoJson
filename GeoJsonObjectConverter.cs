@@ -33,8 +33,7 @@ public sealed class GeoJsonObjectConverter : JsonConverter<GeoJsonObject>
                 return (GeoJsonObject?)root.Deserialize(featureCollection, options);
 
             default:
-                GeometryGeoJsonConverter converter = new();
-                return converter.Read(ref reader, typeToConvert, options);
+                return GeometryGeoJsonObjectFactory.Create(document, geoJsonType, options);
         }
     }
     public override void Write(Utf8JsonWriter writer, GeoJsonObject value, JsonSerializerOptions options)

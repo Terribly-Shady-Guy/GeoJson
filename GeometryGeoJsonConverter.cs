@@ -22,17 +22,7 @@ public sealed class GeometryGeoJsonConverter : JsonConverter<GeometryGeoJsonObje
             throw new JsonException($"Invalid GeoJSON type: {unparsedType}");
         }
 
-        return type switch
-        {
-            GeoJsonObjectTypes.Point => root.Deserialize<PointGeometry>(options),
-            GeoJsonObjectTypes.MultiPoint => root.Deserialize<MultiPointGeometry>(options),
-            GeoJsonObjectTypes.LineString => root.Deserialize<LineStringGeometry>(options),
-            GeoJsonObjectTypes.MultiLineString => root.Deserialize<MultiLineStringGeometry>(options),
-            GeoJsonObjectTypes.Polygon => root.Deserialize<PolygonGeometry>(options),
-            GeoJsonObjectTypes.MultiPolygon => root.Deserialize<MultiPolygonGeometry>(options),
-            GeoJsonObjectTypes.GeometryCollection => root.Deserialize<GeometryCollection>(options),
-            _ => null
-        };
+        return GeometryGeoJsonObjectFactory.Create(document, type, options);
     }
 
     public override void Write(Utf8JsonWriter writer, GeometryGeoJsonObject value, JsonSerializerOptions options)
@@ -63,5 +53,25 @@ public sealed class GeometryGeoJsonConverter : JsonConverter<GeometryGeoJsonObje
             default:
                 throw new NotSupportedException($"The geometry type '{value.GetType().Name}' is not supported for serialization.");
         }
+    }
+}
+
+
+public static class GeometryGeoJsonObjectFactory
+{
+    public static GeometryGeoJsonObject? Create(JsonDocument document, GeoJsonObjectTypes type, JsonSerializerOptions options)
+    {
+        JsonElement root = document.RootElement;
+        return type switch
+        {
+            GeoJsonObjectTypes.Point => root.Deserialize<PointGeometry>(options),
+            GeoJsonObjectTypes.MultiPoint => root.Deserialize<MultiPointGeometry>(options),
+            GeoJsonObjectTypes.LineString => root.Deserialize<LineStringGeometry>(options),
+            GeoJsonObjectTypes.MultiLineString => root.Deserialize<MultiLineStringGeometry>(options),
+            GeoJsonObjectTypes.Polygon => root.Deserialize<PolygonGeometry>(options),
+            GeoJsonObjectTypes.MultiPolygon => root.Deserialize<MultiPolygonGeometry>(options),
+            GeoJsonObjectTypes.GeometryCollection => root.Deserialize<GeometryCollection>(options),
+            _ => null
+        };
     }
 }
