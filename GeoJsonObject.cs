@@ -32,7 +32,7 @@ public abstract class GeoJsonObject
     public BoundingBox? BBox { get; init; } = null;
 
     /// <summary>
-    /// The GeoJSON rfc standard allows for nonstandard properties to be included in GeoJSON objects. This property will contain these properties or null if none exists.
+    /// Rfc 7946 allows for nonstandard properties to be included in GeoJSON objects. This property will contain these properties or null if none exists.
     /// </summary>
     [JsonExtensionData]
     public IDictionary<string, object?>? ForeignMembers { get; init; } = null;
