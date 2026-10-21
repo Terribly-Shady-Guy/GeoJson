@@ -36,18 +36,19 @@ public sealed class GeoJsonObjectConverter : JsonConverter<GeoJsonObject>
                 return GeometryGeoJsonObjectFactory.Create(document, geoJsonType, options);
         }
     }
+
     public override void Write(Utf8JsonWriter writer, GeoJsonObject value, JsonSerializerOptions options)
     {
         Type valueType = value.GetType();
 
         switch (value)
         {
-            case { Type: GeoJsonObjectTypes.Feature}:
+            case { Type: GeoJsonObjectTypes.Feature }:
                 Type feature = CreateGenericType(typeof(Feature<,>), valueType);
                 JsonSerializer.Serialize(writer, value, feature,  options);
                 break;
 
-            case { Type: GeoJsonObjectTypes.FeatureCollection}:
+            case { Type: GeoJsonObjectTypes.FeatureCollection }:
                 Type featureCollection = CreateGenericType(typeof(FeatureCollection<,>), valueType);
                 JsonSerializer.Serialize(writer, value, featureCollection, options);
                 break;
