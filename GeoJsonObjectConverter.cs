@@ -25,13 +25,13 @@ public sealed class GeoJsonObjectConverter : JsonConverter<GeoJsonObject>
         switch (geoJsonType)
         {
             case GeoJsonObjectTypes.Feature:
-                Type[] genericArgs = typeToConvert.GetGenericArguments();
-                Type feature = typeof(Feature<,>).MakeGenericType(genericArgs);
+                Type feature = CreateGenericType(typeof(Feature<,>), typeToConvert);
                 return (GeoJsonObject?)root.Deserialize(feature, options);
+
             case GeoJsonObjectTypes.FeatureCollection:
-                genericArgs = typeToConvert.GetGenericArguments();
-                Type featureCollection = typeof(FeatureCollection<,>).MakeGenericType(genericArgs);
+                Type featureCollection = CreateGenericType(typeof(FeatureCollection<,>), typeToConvert);
                 return (GeoJsonObject?)root.Deserialize(featureCollection, options);
+
             default:
                 GeometryGeoJsonConverter converter = new();
                 return converter.Read(ref reader, typeToConvert, options);
@@ -39,24 +39,33 @@ public sealed class GeoJsonObjectConverter : JsonConverter<GeoJsonObject>
     }
     public override void Write(Utf8JsonWriter writer, GeoJsonObject value, JsonSerializerOptions options)
     {
+        Type valueType = value.GetType();
+
         switch (value)
         {
             case { Type: GeoJsonObjectTypes.Feature}:
-                Type[] genericArgs = value.GetType().GetGenericArguments();
-                Type feature = typeof(Feature<,>).MakeGenericType(genericArgs);
+                Type feature = CreateGenericType(typeof(Feature<,>), valueType);
                 JsonSerializer.Serialize(writer, value, feature,  options);
                 break;
+
             case { Type: GeoJsonObjectTypes.FeatureCollection}:
-                genericArgs = value.GetType().GetGenericArguments();
-                Type featureCollection = typeof(FeatureCollection<,>).MakeGenericType(genericArgs);
+                Type featureCollection = CreateGenericType(typeof(FeatureCollection<,>), valueType);
                 JsonSerializer.Serialize(writer, value, featureCollection, options);
                 break;
+
             case GeometryGeoJsonObject geometry:
                 GeometryGeoJsonConverter converter = new();
                 converter.Write(writer, geometry, options);
                 break;
+
             default:
                 throw new NotSupportedException($"The GeoJSON type '{value.GetType().Name}' is not supported for serialization.");
         }
+    }
+
+    private static Type CreateGenericType(Type generic, Type abstractType)
+    {
+        Type[] args = abstractType.GetGenericArguments();
+        return generic.MakeGenericType(args);
     }
 }
