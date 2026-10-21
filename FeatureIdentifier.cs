@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace GeoJson;
 
 /// <summary>
-/// A type to represent an id value. id can either be string or double.
+/// A type to represent an id value. Id can either be string or double.
 /// </summary>
 [JsonConverter(typeof(FeatureIdentifierJsonConverter))]
 public readonly struct FeatureIdentifier
