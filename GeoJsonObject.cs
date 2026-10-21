@@ -9,7 +9,7 @@ namespace GeoJson;
 /// You should not directly inherit this class. Inheriting this class directly implies extending the type property which is not supported in rfc 7946.
 /// <para>This will be updated to be a closed type in a future version.</para>
 /// </remarks>
-[JsonConverter(typeof(GeoJsonObjectConverterFactory))]
+[JsonConverter(typeof(GeoJsonObjectConverter))]
 public abstract class GeoJsonObject
 {
     /// <summary>
