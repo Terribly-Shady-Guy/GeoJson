@@ -101,7 +101,7 @@ public sealed class FeatureIdentifierJsonConverter : JsonConverter<FeatureIdenti
         }
         else if (reader.TokenType == JsonTokenType.String)
         {
-            string stringValue = reader.GetString() ?? string.Empty;
+            string stringValue = reader.GetString() ?? throw new JsonException("String cannot be null.");
             return stringValue;
         }
 
