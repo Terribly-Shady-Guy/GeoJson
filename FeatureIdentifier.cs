@@ -54,6 +54,11 @@ public readonly struct FeatureIdentifier
     };
 
     /// <summary>
+    /// Indicates that the <see cref="FeatureIdentifier"/> instance contains a value.
+    /// </summary>
+    public bool HasValue => _tag != FeatureIdentifierType.None;
+
+    /// <summary>
     /// Attempts to unwrap the <see cref="FeatureIdentifier"/> to its underlying <see cref="double"/>.
     /// </summary>
     /// <param name="id">The double value to unwrap.</param>
