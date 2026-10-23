@@ -44,7 +44,7 @@ public record BoundingBox3D : BoundingBox
     }
 }
 
-public class BoundingBoxConverter : JsonConverter<BoundingBox>
+public sealed class BoundingBoxConverter : JsonConverter<BoundingBox>
 {
     public override BoundingBox Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
