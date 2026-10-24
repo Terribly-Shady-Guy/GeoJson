@@ -24,10 +24,10 @@ public readonly struct FeatureIdentifier
     /// <summary>
     /// Initializes an instance of <see cref="FeatureIdentifier"/> as a <see cref="double"/>.
     /// </summary>
-    /// <param name="id">The double value to initialize with.</param>
-    public FeatureIdentifier(double id)
+    /// <param name="value">The double value to initialize with.</param>
+    public FeatureIdentifier(double value)
     {
-        _doubleValue = id;
+        _doubleValue = value;
         _stringValue = string.Empty;
         _tag = FeatureIdentifierType.Double;
     }
@@ -35,11 +35,11 @@ public readonly struct FeatureIdentifier
     /// <summary>
     /// Initializes an instance of <see cref="FeatureIdentifier"/> as a <see cref="string"/>.
     /// </summary>
-    /// <param name="id">The string to initialize with.</param>
-    public FeatureIdentifier(string id)
+    /// <param name="value">The string to initialize with.</param>
+    public FeatureIdentifier(string value)
     {
         _doubleValue = default;
-        _stringValue = id;
+        _stringValue = value;
         _tag = FeatureIdentifierType.String;
     }
 
@@ -61,29 +61,29 @@ public readonly struct FeatureIdentifier
     /// <summary>
     /// Attempts to unwrap the <see cref="FeatureIdentifier"/> to its underlying <see cref="double"/>.
     /// </summary>
-    /// <param name="id">The double value to unwrap.</param>
+    /// <param name="value">The double value to unwrap.</param>
     /// <returns>True if the unwrap was successful; otherwise, false.</returns>
-    public bool TryGetValue(out double id)
+    public bool TryGetValue(out double value)
     {
         bool isDouble = _tag == FeatureIdentifierType.Double;
-        id = isDouble ? _doubleValue : default;
+        value = isDouble ? _doubleValue : default;
         return isDouble;
     }
 
     /// <summary>
     /// Attempts to unwrap the <see cref="FeatureIdentifier"/> to its underlying <see cref="string"/>.
     /// </summary>
-    /// <param name="id">The string value to unwrap.</param>
+    /// <param name="value">The string value to unwrap.</param>
     /// <returns>True if the unwrap was successful; otherwise, false.</returns>
-    public bool TryGetValue([NotNullWhen(true)] out string? id)
+    public bool TryGetValue([NotNullWhen(true)] out string? value)
     {
         bool isString = _tag == FeatureIdentifierType.String;
-        id = isString ? _stringValue : null;
+        value = isString ? _stringValue : null;
         return isString;
     }
 
-    public static implicit operator FeatureIdentifier(double id) => new(id);
-    public static implicit operator FeatureIdentifier(string id) => new(id);
+    public static implicit operator FeatureIdentifier(double value) => new(value);
+    public static implicit operator FeatureIdentifier(string value) => new(value);
 }
 
 public sealed class FeatureIdentifierJsonConverter : JsonConverter<FeatureIdentifier>
