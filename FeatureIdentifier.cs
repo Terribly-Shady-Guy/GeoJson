@@ -65,14 +65,9 @@ public readonly struct FeatureIdentifier
     /// <returns>True if the unwrap was successful; otherwise, false.</returns>
     public bool TryGetValue(out double id)
     {
-        if (_tag != FeatureIdentifierType.Double)
-        {
-            id = default;
-            return false;
-        }
-
-        id = _doubleValue;
-        return true;
+        bool isDouble = _tag == FeatureIdentifierType.Double;
+        id = isDouble ? _doubleValue : default;
+        return isDouble;
     }
 
     /// <summary>
@@ -82,14 +77,9 @@ public readonly struct FeatureIdentifier
     /// <returns>True if the unwrap was successful; otherwise, false.</returns>
     public bool TryGetValue([NotNullWhen(true)] out string? id)
     {
-        if (_tag != FeatureIdentifierType.String)
-        {
-            id = default;
-            return false;
-        }
-
-        id = _stringValue;
-        return true;
+        bool isString = _tag == FeatureIdentifierType.String;
+        id = isString ? _stringValue : null;
+        return isString;
     }
 
     public static implicit operator FeatureIdentifier(double id) => new(id);
