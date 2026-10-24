@@ -97,12 +97,18 @@ public sealed class BoundingBoxConverter : JsonConverter<BoundingBox>
         writer.WriteNumberValue(value.West);
         writer.WriteNumberValue(value.South);
 
-        if (box3D != null) writer.WriteNumberValue(box3D.MinAltitude);
+        if (box3D != null)
+        {
+            writer.WriteNumberValue(box3D.MinAltitude);
+        }
 
         writer.WriteNumberValue(value.East);
         writer.WriteNumberValue(value.North);
 
-        if (box3D != null) writer.WriteNumberValue(box3D.MaxAltitude);
+        if (box3D != null)
+        {
+            writer.WriteNumberValue(box3D.MaxAltitude);
+        }
 
         writer.WriteEndArray();
     }
