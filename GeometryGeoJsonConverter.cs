@@ -56,7 +56,6 @@ public sealed class GeometryGeoJsonConverter : JsonConverter<GeometryGeoJsonObje
     }
 }
 
-
 public static class GeometryGeoJsonObjectFactory
 {
     public static GeometryGeoJsonObject? Create(JsonDocument document, GeoJsonObjectTypes type, JsonSerializerOptions options)
