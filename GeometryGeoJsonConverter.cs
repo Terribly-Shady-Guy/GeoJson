@@ -30,25 +30,25 @@ public sealed class GeometryGeoJsonConverter : JsonConverter<GeometryGeoJsonObje
         switch (value)
         {
             case PointGeometry point:
-                JsonSerializer.Serialize(writer: writer, point, options);
+                JsonSerializer.Serialize(writer, point, options);
                 break;
             case MultiPointGeometry multiPoint:
-                JsonSerializer.Serialize(writer: writer, multiPoint, options);
+                JsonSerializer.Serialize(writer, multiPoint, options);
                 break;
             case LineStringGeometry lineString:
-                JsonSerializer.Serialize(writer: writer, lineString, options);
+                JsonSerializer.Serialize(writer, lineString, options);
                 break;
             case MultiLineStringGeometry multiLineString:
-                JsonSerializer.Serialize(writer: writer, multiLineString, options);
+                JsonSerializer.Serialize(writer, multiLineString, options);
                 break;
             case PolygonGeometry polygon:
-                JsonSerializer.Serialize(writer: writer, polygon, options);
+                JsonSerializer.Serialize(writer, polygon, options);
                 break;
             case MultiPolygonGeometry multiPolygon:
-                JsonSerializer.Serialize(writer: writer, multiPolygon, options);
+                JsonSerializer.Serialize(writer, multiPolygon, options);
                 break;
             case GeometryCollection geometryCollection:
-                JsonSerializer.Serialize(writer: writer, geometryCollection, options);
+                JsonSerializer.Serialize(writer, geometryCollection, options);
                 break;
             default:
                 throw new NotSupportedException($"The geometry type '{value.GetType().Name}' is not supported for serialization.");
