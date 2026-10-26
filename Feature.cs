@@ -43,11 +43,11 @@ public sealed class Feature<TGeometry, TProperties> : GeoJsonObject
 /// <summary>
 /// Reporesents a collection of Feature GeoJSON objects.
 /// </summary>
-/// <typeparam name="TGeometry">The type used for each feature Geometry property. Can be nullable.</typeparam>
+/// <typeparam name="TFeatureGeometry">The type used for each feature Geometry property. Can be nullable.</typeparam>
 /// <typeparam name="TFeatureProperties">The type used for each feature Properties property. Can be nullable.</typeparam>
-public sealed class FeatureCollection<TGeometry, TFeatureProperties> : GeoJsonObject
+public sealed class FeatureCollection<TFeatureGeometry, TFeatureProperties> : GeoJsonObject
     where TFeatureProperties : class?
-    where TGeometry : GeometryGeoJsonObject?
+    where TFeatureGeometry : GeometryGeoJsonObject?
 {
     [JsonPropertyName("type")]
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.FeatureCollection;
@@ -57,5 +57,5 @@ public sealed class FeatureCollection<TGeometry, TFeatureProperties> : GeoJsonOb
     /// </summary>
     [JsonPropertyName("features")]
     [JsonPropertyOrder(2)]
-    public required IList<Feature<TGeometry, TFeatureProperties>> Features { get; init; }
+    public required IList<Feature<TFeatureGeometry, TFeatureProperties>> Features { get; init; }
 }
