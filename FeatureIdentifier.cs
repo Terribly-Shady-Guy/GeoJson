@@ -19,7 +19,7 @@ public readonly struct FeatureIdentifier
 
     private readonly double _doubleValue;
     private readonly string _stringValue;
-    private readonly FeatureIdentifierType _tag;
+    private readonly FeatureIdentifierType _discriminator;
 
     /// <summary>
     /// Initializes an instance of <see cref="FeatureIdentifier"/> as a <see cref="double"/>.
@@ -29,7 +29,7 @@ public readonly struct FeatureIdentifier
     {
         _doubleValue = value;
         _stringValue = string.Empty;
-        _tag = FeatureIdentifierType.Double;
+        _discriminator = FeatureIdentifierType.Double;
     }
 
     /// <summary>
@@ -40,13 +40,13 @@ public readonly struct FeatureIdentifier
     {
         _doubleValue = default;
         _stringValue = value;
-        _tag = FeatureIdentifierType.String;
+        _discriminator = FeatureIdentifierType.String;
     }
 
     /// <summary>
     /// Gets the underlying value of the instance.
     /// </summary>
-    public readonly object? Value => _tag switch
+    public readonly object? Value => _discriminator switch
     {
         FeatureIdentifierType.Double => _doubleValue,
         FeatureIdentifierType.String => _stringValue,
@@ -56,7 +56,7 @@ public readonly struct FeatureIdentifier
     /// <summary>
     /// Indicates that the <see cref="FeatureIdentifier"/> instance contains a value.
     /// </summary>
-    public bool HasValue => _tag != FeatureIdentifierType.None;
+    public bool HasValue => _discriminator != FeatureIdentifierType.None;
 
     /// <summary>
     /// Attempts to unwrap the <see cref="FeatureIdentifier"/> to its underlying <see cref="double"/>.
@@ -65,7 +65,7 @@ public readonly struct FeatureIdentifier
     /// <returns>True if the unwrap was successful; otherwise, false.</returns>
     public bool TryGetValue(out double value)
     {
-        bool isDouble = _tag == FeatureIdentifierType.Double;
+        bool isDouble = _discriminator == FeatureIdentifierType.Double;
         value = isDouble ? _doubleValue : default;
         return isDouble;
     }
@@ -77,7 +77,7 @@ public readonly struct FeatureIdentifier
     /// <returns>True if the unwrap was successful; otherwise, false.</returns>
     public bool TryGetValue([NotNullWhen(true)] out string? value)
     {
-        bool isString = _tag == FeatureIdentifierType.String;
+        bool isString = _discriminator == FeatureIdentifierType.String;
         value = isString ? _stringValue : null;
         return isString;
     }
