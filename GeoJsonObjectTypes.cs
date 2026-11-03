@@ -5,7 +5,7 @@ namespace GeoJson;
 /// <summary>
 /// Represents the different GeoJSON types.
 /// </summary>
-[JsonConverter(typeof(JsonStringEnumConverter))]
+[JsonConverter(typeof(JsonStringEnumConverter<GeoJsonObjectTypes>))]
 public enum GeoJsonObjectTypes
 {
     /// <summary>

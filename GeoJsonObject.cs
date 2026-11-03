@@ -38,5 +38,5 @@ public abstract class GeoJsonObject
     /// Rfc 7946 allows for nonstandard properties to be included in GeoJSON objects. This property will contain these properties or null if none exists.
     /// </summary>
     [JsonExtensionData]
-    public IDictionary<string, object?>? ForeignMembers { get; init; } = null;
+    public IDictionary<string, object?>? ForeignMembers { get; set; } = null;
 }
