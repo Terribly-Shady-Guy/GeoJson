@@ -7,7 +7,7 @@ namespace GeoJson.Geometries;
 /// </summary>
 public sealed class GeometryCollection : GeometryGeoJsonObject
 {
-    public GeometryCollection(IList<GeometryGeoJsonObject> geometries)
+    public GeometryCollection(IEnumerable<GeometryGeoJsonObject> geometries)
     {
         Geometries = geometries;
     }
@@ -20,5 +20,5 @@ public sealed class GeometryCollection : GeometryGeoJsonObject
     /// </summary>
     [JsonPropertyName("geometries")]
     [JsonPropertyOrder(2)]
-    public IList<GeometryGeoJsonObject> Geometries { get; }
+    public IEnumerable<GeometryGeoJsonObject> Geometries { get; }
 }

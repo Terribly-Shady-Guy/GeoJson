@@ -16,7 +16,7 @@ namespace GeoJson.Geometries;
 /// 
 public sealed class PolygonGeometry : GeometryGeoJsonObject
 {
-    public PolygonGeometry(IList<IList<Position>> coordinates)
+    public PolygonGeometry(IEnumerable<IEnumerable<Position>> coordinates)
     {
         Coordinates = coordinates;
     }
@@ -29,5 +29,5 @@ public sealed class PolygonGeometry : GeometryGeoJsonObject
     /// </summary>
     [JsonPropertyName("coordinates")]
     [JsonPropertyOrder(2)]
-    public IList<IList<Position>> Coordinates { get; }
+    public IEnumerable<IEnumerable<Position>> Coordinates { get; }
 }

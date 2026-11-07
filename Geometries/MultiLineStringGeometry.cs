@@ -7,7 +7,7 @@ namespace GeoJson.Geometries;
 /// </summary>
 public sealed class MultiLineStringGeometry : GeometryGeoJsonObject
 {
-    public MultiLineStringGeometry(IList<IList<Position>> coordinates)
+    public MultiLineStringGeometry(IEnumerable<IEnumerable<Position>> coordinates)
     {
         Coordinates = coordinates;
     }
@@ -20,5 +20,5 @@ public sealed class MultiLineStringGeometry : GeometryGeoJsonObject
     /// </summary>
     [JsonPropertyName("coordinates")]
     [JsonPropertyOrder(2)]
-    public IList<IList<Position>> Coordinates { get; }
+    public IEnumerable<IEnumerable<Position>> Coordinates { get; }
 }

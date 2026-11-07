@@ -12,7 +12,7 @@ public sealed class FeatureCollection<TFeatureGeometry, TFeatureProperties> : Ge
     where TFeatureGeometry : GeometryGeoJsonObject?
     where TFeatureProperties : class?
 {
-    public FeatureCollection(IList<Feature<TFeatureGeometry, TFeatureProperties>> features)
+    public FeatureCollection(IEnumerable<Feature<TFeatureGeometry, TFeatureProperties>> features)
     {
         Features = features;
     }
@@ -25,5 +25,5 @@ public sealed class FeatureCollection<TFeatureGeometry, TFeatureProperties> : Ge
     /// </summary>
     [JsonPropertyName("features")]
     [JsonPropertyOrder(2)]
-    public IList<Feature<TFeatureGeometry, TFeatureProperties>> Features { get; }
+    public IEnumerable<Feature<TFeatureGeometry, TFeatureProperties>> Features { get; }
 }
