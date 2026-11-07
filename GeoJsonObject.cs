@@ -1,6 +1,6 @@
 ﻿using GeoJson.Converters;
 using GeoJson.Features;
-using GeoJson.Geometries;
+using GeoJson.Geometry;
 using System.Text.Json.Serialization;
 
 namespace GeoJson;

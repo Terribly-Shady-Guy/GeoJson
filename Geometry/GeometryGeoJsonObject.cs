@@ -1,7 +1,7 @@
 ﻿using GeoJson.Converters;
 using System.Text.Json.Serialization;
 
-namespace GeoJson.Geometries;
+namespace GeoJson.Geometry;
 
 /// <summary>
 /// A marker class representing a geometry GeoJSON type.

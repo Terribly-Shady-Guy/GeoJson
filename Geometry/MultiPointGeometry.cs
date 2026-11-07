@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace GeoJson.Geometries;
+namespace GeoJson.Geometry;
 
 /// <summary>
 /// A geometry GeoJSON type representing a collection of positions.

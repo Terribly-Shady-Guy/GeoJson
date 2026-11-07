@@ -1,4 +1,4 @@
-﻿using GeoJson.Geometries;
+﻿using GeoJson.Geometry;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
