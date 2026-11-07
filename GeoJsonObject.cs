@@ -34,7 +34,7 @@ public abstract class GeoJsonObject
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("bbox")]
     [JsonPropertyOrder(1)]
-    public BoundingBox? BBox { get; init; } = null;
+    public BoundingBox? BBox { get; set; } = null;
 
     /// <summary>
     /// Rfc 7946 allows for nonstandard properties to be included in GeoJSON objects. This property will contain these properties or null if none exists.

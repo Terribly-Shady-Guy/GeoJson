@@ -9,10 +9,10 @@ namespace GeoJson;
 [JsonConverter(typeof(BoundingBoxJsonConverter))]
 public abstract record BoundingBox
 {
-    public required double West { get; init; }
-    public required double South { get; init; }
-    public required double East { get; init; }
-    public required double North { get; init; }
+    public required double West { get; set; }
+    public required double South { get; set; }
+    public required double East { get; set; }
+    public required double North { get; set; }
 }
 
 public sealed record BoundingBox2D : BoundingBox
@@ -27,8 +27,8 @@ public sealed record BoundingBox2D : BoundingBox
 /// </summary>
 public sealed record BoundingBox3D : BoundingBox
 {
-    public required double MinAltitude { get; init; }
-    public required double MaxAltitude { get; init; }
+    public required double MinAltitude { get; set; }
+    public required double MaxAltitude { get; set; }
 
     public override string ToString()
     {
