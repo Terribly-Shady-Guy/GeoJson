@@ -15,6 +15,9 @@ public abstract class BoundingBox
     public required double North { get; set; }
 }
 
+/// <summary>
+/// Represents a 2D bounding box for a GeoJson type.
+/// </summary>
 public sealed class BoundingBox2D : BoundingBox
 {
     public override string ToString()
