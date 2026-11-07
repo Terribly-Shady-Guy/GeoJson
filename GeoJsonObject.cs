@@ -22,6 +22,7 @@ public abstract class GeoJsonObject
     /// <summary>
     /// Represents the "type" property in a GeoJSON object.
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
     [JsonPropertyName("type")]
     [JsonPropertyOrder(0)]
     public abstract GeoJsonObjectTypes Type { get; }
