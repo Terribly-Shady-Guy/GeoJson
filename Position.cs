@@ -12,6 +12,8 @@ namespace GeoJson;
 [JsonConverter(typeof(PositionJsonConverter))]
 public readonly record struct Position(double Latitude, double Longitude, double? Altitude = null)
 {
+    public bool Is3D => Altitude != null;
+
     public override string ToString()
     {
         return Altitude != null ? $"{Longitude},{Latitude},{Altitude}" : $"{Longitude},{Latitude}";
