@@ -1,7 +1,7 @@
 ﻿using GeoJson.Converters;
 using System.Text.Json.Serialization;
 
-namespace GeoJson;
+namespace GeoJson.Geometries;
 
 /// <summary>
 /// Represents an individual point in a geometry.
