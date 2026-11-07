@@ -9,8 +9,8 @@ namespace GeoJson.Features;
 /// <typeparam name="TFeatureGeometry">The type used for each feature Geometry property. Can be nullable.</typeparam>
 /// <typeparam name="TFeatureProperties">The type used for each feature Properties property. Can be nullable.</typeparam>
 public sealed class FeatureCollection<TFeatureGeometry, TFeatureProperties> : GeoJsonObject
-    where TFeatureProperties : class?
     where TFeatureGeometry : GeometryGeoJsonObject?
+    where TFeatureProperties : class?
 {
     public FeatureCollection(IList<Feature<TFeatureGeometry, TFeatureProperties>> features)
     {
