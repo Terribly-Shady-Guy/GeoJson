@@ -7,7 +7,7 @@ namespace GeoJson;
 /// Represents a bounding box for a GeoJSON type.
 /// </summary>
 [JsonConverter(typeof(BoundingBoxJsonConverter))]
-public abstract record BoundingBox
+public abstract class BoundingBox
 {
     public required double West { get; set; }
     public required double South { get; set; }
@@ -15,7 +15,7 @@ public abstract record BoundingBox
     public required double North { get; set; }
 }
 
-public sealed record BoundingBox2D : BoundingBox
+public sealed class BoundingBox2D : BoundingBox
 {
     public override string ToString()
     {
@@ -25,7 +25,7 @@ public sealed record BoundingBox2D : BoundingBox
 /// <summary>
 /// Represents a 3D bounding box for a GeoJSON type.
 /// </summary>
-public sealed record BoundingBox3D : BoundingBox
+public sealed class BoundingBox3D : BoundingBox
 {
     public required double MinAltitude { get; set; }
     public required double MaxAltitude { get; set; }
