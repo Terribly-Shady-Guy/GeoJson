@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using GeoJson.Converters;
+using GeoJson.Features;
+using System.Text.Json.Serialization;
 
 namespace GeoJson;
 
@@ -14,7 +16,7 @@ namespace GeoJson;
 /// </para>
 /// <para>This will be updated to be a closed type in a future version.</para>
 /// </remarks>
-[JsonConverter(typeof(GeoJsonObjectConverter))]
+[JsonConverter(typeof(GeoJsonConverter))]
 public abstract class GeoJsonObject
 {
     /// <summary>

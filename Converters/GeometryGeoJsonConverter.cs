@@ -1,7 +1,8 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using GeoJson.Geometries;
 
-namespace GeoJson;
+namespace GeoJson.Converters;
 
 public sealed class GeometryGeoJsonConverter : JsonConverter<GeometryGeoJsonObject>
 {

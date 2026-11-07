@@ -1,0 +1,24 @@
+﻿using System.Text.Json.Serialization;
+
+namespace GeoJson.Geometries;
+
+/// <summary>
+/// A geometry GeoJSON type representing a sequence of positions.
+/// </summary>
+public sealed class LineStringGeometry : GeometryGeoJsonObject
+{
+    public LineStringGeometry(IList<Position> coordinates)
+    {
+        Coordinates = coordinates;
+    }
+
+    [JsonPropertyName("type")]
+    public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.LineString;
+
+    /// <summary>
+    /// Represents the "coordinates" property in a GeoJSON geometry object. For a "LineString" type, it will contain an array of sequential position arrays.
+    /// </summary>
+    [JsonPropertyName("coordinates")]
+    [JsonPropertyOrder(2)]
+    public IList<Position> Coordinates { get; }
+}

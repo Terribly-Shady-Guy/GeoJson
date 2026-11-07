@@ -1,8 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Text.Json;
+﻿using GeoJson.Converters;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
-namespace GeoJson;
+namespace GeoJson.Features;
 
 /// <summary>
 /// A type to represent an id value. Id can either be string or double.
@@ -84,38 +84,4 @@ public readonly struct FeatureIdentifier
 
     public static implicit operator FeatureIdentifier(double value) => new(value);
     public static implicit operator FeatureIdentifier(string value) => new(value);
-}
-
-public sealed class FeatureIdentifierJsonConverter : JsonConverter<FeatureIdentifier>
-{
-    public override FeatureIdentifier Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-    {
-        if (reader.TokenType == JsonTokenType.Number && reader.TryGetDouble(out double doubleValue))
-        {
-            return doubleValue;
-        }
-        else if (reader.TokenType == JsonTokenType.String)
-        {
-            string stringValue = reader.GetString() ?? throw new JsonException("String cannot be null.");
-            return stringValue;
-        }
-
-        throw new JsonException($"Unexpected token parsing FeatureIdentifier. Expected Number or String, got {reader.TokenType}.");
-    }
-
-    public override void Write(Utf8JsonWriter writer, FeatureIdentifier value, JsonSerializerOptions options)
-    {
-        if (value.TryGetValue(out double doubleValue))
-        {
-            writer.WriteNumberValue(doubleValue);
-        }
-        else if (value.TryGetValue(out string? stringValue))
-        {
-            writer.WriteStringValue(stringValue);
-        }
-        else
-        {
-            writer.WriteNullValue();
-        }
-    }
 }

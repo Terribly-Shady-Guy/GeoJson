@@ -1,4 +1,4 @@
-﻿using System.Text.Json;
+﻿using GeoJson.Converters;
 using System.Text.Json.Serialization;
 
 namespace GeoJson;
@@ -10,87 +10,10 @@ namespace GeoJson;
 /// <param name="Latitude">The point's latitude. This will be the second element in a position array.</param>
 /// <param name="Altitude">An optional altitude. This will be the last element in a position array if used.</param>
 [JsonConverter(typeof(PositionJsonConverter))]
-public readonly record struct Position(double Longitude, double Latitude, double? Altitude = null)
+public readonly record struct Position(double Latitude, double Longitude, double? Altitude = null)
 {
-    public double[] ToArray()
-    {
-        if (Altitude != null)
-        {
-            return [Longitude, Latitude, (double)Altitude];
-        }
-
-        return [Longitude, Latitude];
-    }
-
     public override string ToString()
     {
-       return Altitude != null ? $"{Longitude},{Latitude},{Altitude}" : $"{Longitude},{Latitude}";
-    }
-}
-
-public sealed class PositionJsonConverter : JsonConverter<Position>
-{
-    private const int LatitudeIndex = 1;
-    private const int LongitudeIndex = 0;
-    private const int AltitudeIndex = 2;
-
-    public override Position Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-    {
-        if (reader.TokenType != JsonTokenType.StartArray)
-        {
-            throw new JsonException("Value must be an array of numbers.");
-        }
-
-        double latitude = 0;
-        double longitude = 0;
-        double? altitude = null;
-
-        int position = 0;
-        while (reader.Read() && reader.TokenType != JsonTokenType.EndArray)
-        {
-            switch (position)
-            {
-                case LongitudeIndex:
-                    longitude = reader.GetDouble();
-                    break;
-                case LatitudeIndex:
-                    latitude = reader.GetDouble();
-                    break;
-                case AltitudeIndex:
-                    altitude = reader.GetDouble();
-                    break;
-                default:
-                    ThrowJsonExceptionForInvalidSize();
-                    break;
-            }
-
-            position++;
-        }
-
-        if (position < 1)
-        {
-            ThrowJsonExceptionForInvalidSize();
-        }
-
-        return new Position(longitude, latitude, altitude);
-    }
-
-    public override void Write(Utf8JsonWriter writer, Position value, JsonSerializerOptions options)
-    {
-        writer.WriteStartArray();
-
-        writer.WriteNumberValue(value.Longitude);
-        writer.WriteNumberValue(value.Latitude);
-        if (value.Altitude != null)
-        {
-            writer.WriteNumberValue((double)value.Altitude);
-        }
-
-        writer.WriteEndArray();
-    }
-
-    private static void ThrowJsonExceptionForInvalidSize()
-    {
-        throw new JsonException("A valid position array must contain 2 to 3 elements.");
+        return Altitude != null ? $"{Longitude},{Latitude},{Altitude}" : $"{Longitude},{Latitude}";
     }
 }

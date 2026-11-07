@@ -1,6 +1,7 @@
-﻿using System.Text.Json.Serialization;
+﻿using GeoJson.Geometries;
+using System.Text.Json.Serialization;
 
-namespace GeoJson;
+namespace GeoJson.Features;
 
 /// <summary>
 /// Represents a Feature GeoJSON object type.
@@ -11,6 +12,12 @@ public sealed class Feature<TGeometry, TProperties> : GeoJsonObject
     where TProperties : class?
     where TGeometry : GeometryGeoJsonObject?
 {
+    public Feature(TGeometry geometry, TProperties properties)
+    {
+        Geometry = geometry;
+        Properties = properties;
+    }
+
     [JsonPropertyName("type")]
     public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.Feature;
 
@@ -30,32 +37,12 @@ public sealed class Feature<TGeometry, TProperties> : GeoJsonObject
     /// </summary>
     [JsonPropertyName("geometry")]
     [JsonPropertyOrder(2)]
-    public required TGeometry Geometry { get; init; }
+    public TGeometry Geometry { get; }
 
     /// <summary>
     /// Represents the "properties" property in a feature. This will contain a user defined type that maps to the properties of the feature. This can be null if the feature has no properties.
     /// </summary>
     [JsonPropertyName("properties")]
     [JsonPropertyOrder(3)]
-    public required TProperties Properties { get; init; }
-}
-
-/// <summary>
-/// Reporesents a collection of Feature GeoJSON objects.
-/// </summary>
-/// <typeparam name="TFeatureGeometry">The type used for each feature Geometry property. Can be nullable.</typeparam>
-/// <typeparam name="TFeatureProperties">The type used for each feature Properties property. Can be nullable.</typeparam>
-public sealed class FeatureCollection<TFeatureGeometry, TFeatureProperties> : GeoJsonObject
-    where TFeatureProperties : class?
-    where TFeatureGeometry : GeometryGeoJsonObject?
-{
-    [JsonPropertyName("type")]
-    public override GeoJsonObjectTypes Type => GeoJsonObjectTypes.FeatureCollection;
-
-    /// <summary>
-    /// Represents the "features" property in a feature collection. This will contain a list of <see cref="Feature{TGeometry, TFeatureProperties}"/> objects.
-    /// </summary>
-    [JsonPropertyName("features")]
-    [JsonPropertyOrder(2)]
-    public required IList<Feature<TFeatureGeometry, TFeatureProperties>> Features { get; init; }
+    public TProperties Properties { get; }
 }

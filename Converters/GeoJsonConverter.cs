@@ -1,10 +1,12 @@
-﻿using System.Text.Json;
+﻿using GeoJson.Features;
+using GeoJson.Geometries;
+using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
-namespace GeoJson;
+namespace GeoJson.Converters;
 
-public sealed class GeoJsonObjectConverter : JsonConverter<GeoJsonObject>
+public sealed class GeoJsonConverter : JsonConverter<GeoJsonObject>
 {
     public override GeoJsonObject? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
