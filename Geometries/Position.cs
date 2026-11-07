@@ -16,6 +16,6 @@ public readonly record struct Position(double Latitude, double Longitude, double
 
     public override string ToString()
     {
-        return Altitude != null ? $"{Longitude},{Latitude},{Altitude}" : $"{Longitude},{Latitude}";
+        return Altitude != null ? $"[{Longitude},{Latitude},{Altitude}]" : $"[{Longitude},{Latitude}]";
     }
 }
