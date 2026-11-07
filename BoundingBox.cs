@@ -15,7 +15,7 @@ public abstract record BoundingBox
     public required double North { get; init; }
 }
 
-public record BoundingBox2D : BoundingBox
+public sealed record BoundingBox2D : BoundingBox
 {
     public override string ToString()
     {
@@ -25,7 +25,7 @@ public record BoundingBox2D : BoundingBox
 /// <summary>
 /// Represents a 3D bounding box for a GeoJSON type.
 /// </summary>
-public record BoundingBox3D : BoundingBox
+public sealed record BoundingBox3D : BoundingBox
 {
     public required double MinAltitude { get; init; }
     public required double MaxAltitude { get; init; }
