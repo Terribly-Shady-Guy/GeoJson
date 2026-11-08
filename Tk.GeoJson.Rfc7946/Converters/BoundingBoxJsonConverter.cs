@@ -3,9 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace Tk.GeoJson.Rfc7946.Converters;
 
-public sealed class BoundingBoxJsonConverter : JsonConverter<BoundingBox>
+public sealed class BoundingBoxJsonConverter : JsonConverter<IBoundingBox>
 {
-    public override BoundingBox Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override IBoundingBox Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         if (reader.TokenType != JsonTokenType.StartArray)
         {
@@ -28,14 +28,14 @@ public sealed class BoundingBoxJsonConverter : JsonConverter<BoundingBox>
 
         return count switch
         {
-            4 => new BoundingBox2D
+            4 => new TwoDimensionalBoundingBox
             {
                 West = bboxBuffer[0],
                 South = bboxBuffer[1],
                 East = bboxBuffer[2],
                 North = bboxBuffer[3],
             },
-            6 => new BoundingBox3D
+            6 => new ThreeDimensionalBoundingBox
             {
                 West = bboxBuffer[0],
                 South = bboxBuffer[1],
@@ -48,9 +48,9 @@ public sealed class BoundingBoxJsonConverter : JsonConverter<BoundingBox>
         };
     }
 
-    public override void Write(Utf8JsonWriter writer, BoundingBox value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, IBoundingBox value, JsonSerializerOptions options)
     {
-        BoundingBox3D? box3D = value as BoundingBox3D;
+        ThreeDimensionalBoundingBox? box3D = value as ThreeDimensionalBoundingBox;
         writer.WriteStartArray();
 
         writer.WriteNumberValue(value.West);

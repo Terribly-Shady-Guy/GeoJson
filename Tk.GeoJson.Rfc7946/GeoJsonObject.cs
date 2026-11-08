@@ -30,13 +30,13 @@ public abstract class GeoJsonObject
 
     /// <summary>
     /// Represents the "bbox" property in a GeoJSON object. 
-    /// <see cref="BoundingBox"/> instances map to a json array in the order of [west, south, east, north] for 2D bounding boxes and [west, south, minAlt, east, north, maxAlt] for 3D bounding boxes.
+    /// <see cref="IBoundingBox"/> instances map to a json array in the order of [west, south, east, north] for 2D bounding boxes and [west, south, minAlt, east, north, maxAlt] for 3D bounding boxes.
     /// </summary>
     /// <remarks>Optional. When null, the property is omitted from JSON.</remarks>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonPropertyName("bbox")]
     [JsonPropertyOrder(1)]
-    public BoundingBox? BBox { get; set; } = null;
+    public IBoundingBox? BBox { get; set; } = null;
 
     /// <summary>
     /// Rfc 7946 allows for nonstandard properties to be included in GeoJSON objects. This property will contain these properties or null if none exists.
