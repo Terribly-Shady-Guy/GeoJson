@@ -82,6 +82,10 @@ public readonly struct FeatureIdentifier
         return isString;
     }
 
+    /// <summary>
+    /// Converts the underlying value to it's string representation.
+    /// </summary>
+    /// <returns>The string representation of this instance.</returns>
     public override string ToString()
     {
         return _discriminator switch
