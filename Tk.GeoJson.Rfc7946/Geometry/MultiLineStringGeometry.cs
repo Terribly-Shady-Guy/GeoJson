@@ -5,7 +5,7 @@ namespace Tk.GeoJson.Rfc7946.Geometry;
 /// <summary>
 /// A geometry GeoJSON type representing a collection of LineStrings.
 /// </summary>
-public sealed class MultiLineStringGeometry : GeometryGeoJsonObject
+public sealed class MultiLineStringGeometry : GeoJsonObject, IGeoJsonGeometry
 {
     public MultiLineStringGeometry(IEnumerable<IEnumerable<Position>> coordinates)
     {

@@ -5,7 +5,7 @@ namespace Tk.GeoJson.Rfc7946.Geometry;
 /// <summary>
 /// A geometry GeoJSON type representing a collection of positions.
 /// </summary>
-public sealed class MultiPointGeometry : GeometryGeoJsonObject
+public sealed class MultiPointGeometry : GeoJsonObject, IGeoJsonGeometry
 {
     public MultiPointGeometry(IEnumerable<Position> coordinates)
     {

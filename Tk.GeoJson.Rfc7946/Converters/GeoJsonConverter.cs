@@ -25,10 +25,10 @@ public sealed class GeoJsonConverter : JsonConverter<GeoJsonObject>
         return geoJsonType switch
         {
             GeoJsonObjectTypes.Feature => document.RootElement
-                .Deserialize<Feature<GeometryGeoJsonObject?, JsonObject?>>(options),
+                .Deserialize<Feature<IGeoJsonGeometry?, JsonObject?>>(options),
             GeoJsonObjectTypes.FeatureCollection => document.RootElement
-                .Deserialize<FeatureCollection<GeometryGeoJsonObject?, JsonObject?>>(options),
-            _ => GeometryGeoJsonObjectFactory.Create(document, geoJsonType, options),
+                .Deserialize<FeatureCollection<IGeoJsonGeometry?, JsonObject?>>(options),
+            _ => GeometryGeoJsonObjectFactory.Create(document, geoJsonType, options) as GeoJsonObject,
         };
     }
 
@@ -48,13 +48,13 @@ public sealed class GeoJsonConverter : JsonConverter<GeoJsonObject>
                 JsonSerializer.Serialize(writer, value, featureCollection, options);
                 break;
 
-            case GeometryGeoJsonObject geometry:
+            case IGeoJsonGeometry geometry:
                 GeometryGeoJsonConverter converter = new();
                 converter.Write(writer, geometry, options);
                 break;
 
             default:
-                throw new NotSupportedException($"The GeoJSON type '{value.GetType().Name}' is not supported for serialization.");
+                throw new NotSupportedException($"The GeoJSON type '{valueType.Name}' is not supported for serialization.");
         }
     }
 

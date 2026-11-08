@@ -4,9 +4,9 @@ using Tk.GeoJson.Rfc7946.Geometry;
 
 namespace Tk.GeoJson.Rfc7946.Converters;
 
-public sealed class GeometryGeoJsonConverter : JsonConverter<GeometryGeoJsonObject>
+public sealed class GeometryGeoJsonConverter : JsonConverter<IGeoJsonGeometry>
 {
-    public override GeometryGeoJsonObject? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override IGeoJsonGeometry? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         using var document = JsonDocument.ParseValue(ref reader);
         JsonElement root = document.RootElement;
@@ -26,7 +26,7 @@ public sealed class GeometryGeoJsonConverter : JsonConverter<GeometryGeoJsonObje
         return GeometryGeoJsonObjectFactory.Create(document, type, options);
     }
 
-    public override void Write(Utf8JsonWriter writer, GeometryGeoJsonObject value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, IGeoJsonGeometry value, JsonSerializerOptions options)
     {
         switch (value)
         {
@@ -59,7 +59,7 @@ public sealed class GeometryGeoJsonConverter : JsonConverter<GeometryGeoJsonObje
 
 public static class GeometryGeoJsonObjectFactory
 {
-    public static GeometryGeoJsonObject? Create(JsonDocument document, GeoJsonObjectTypes type, JsonSerializerOptions options)
+    public static IGeoJsonGeometry? Create(JsonDocument document, GeoJsonObjectTypes type, JsonSerializerOptions options)
     {
         JsonElement root = document.RootElement;
         return type switch

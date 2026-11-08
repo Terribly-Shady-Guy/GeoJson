@@ -5,7 +5,7 @@ namespace Tk.GeoJson.Rfc7946.Geometry;
 /// <summary>
 /// A geometry GeoJSON type representing a single position.
 /// </summary>
-public sealed class PointGeometry : GeometryGeoJsonObject
+public sealed class PointGeometry : GeoJsonObject, IGeoJsonGeometry
 {
     public PointGeometry(Position coordinates)
     {

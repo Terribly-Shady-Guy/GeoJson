@@ -14,7 +14,7 @@ namespace Tk.GeoJson.Rfc7946.Geometry;
 /// </list>
 /// </remarks>
 /// 
-public sealed class PolygonGeometry : GeometryGeoJsonObject
+public sealed class PolygonGeometry : GeoJsonObject, IGeoJsonGeometry
 {
     public PolygonGeometry(IEnumerable<IEnumerable<Position>> coordinates)
     {

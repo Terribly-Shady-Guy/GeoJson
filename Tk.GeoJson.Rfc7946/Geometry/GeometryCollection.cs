@@ -5,9 +5,9 @@ namespace Tk.GeoJson.Rfc7946.Geometry;
 /// <summary>
 /// A geometry GeoJSON type representing a collection of geometries.
 /// </summary>
-public sealed class GeometryCollection : GeometryGeoJsonObject
+public sealed class GeometryCollection : GeoJsonObject, IGeoJsonGeometry
 {
-    public GeometryCollection(IEnumerable<GeometryGeoJsonObject> geometries)
+    public GeometryCollection(IEnumerable<IGeoJsonGeometry> geometries)
     {
         Geometries = geometries;
     }
@@ -20,5 +20,5 @@ public sealed class GeometryCollection : GeometryGeoJsonObject
     /// </summary>
     [JsonPropertyName("geometries")]
     [JsonPropertyOrder(2)]
-    public IEnumerable<GeometryGeoJsonObject> Geometries { get; }
+    public IEnumerable<IGeoJsonGeometry> Geometries { get; }
 }
