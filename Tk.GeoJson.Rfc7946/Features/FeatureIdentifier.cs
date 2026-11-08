@@ -82,6 +82,16 @@ public readonly struct FeatureIdentifier
         return isString;
     }
 
+    public override string ToString()
+    {
+        return _discriminator switch
+        {
+            FeatureIdentifierType.Double => _doubleValue.ToString(),
+            FeatureIdentifierType.String => _stringValue,
+            _ => string.Empty
+        };
+    }
+
     public static implicit operator FeatureIdentifier(double value) => new(value);
     public static implicit operator FeatureIdentifier(string value) => new(value);
 }
