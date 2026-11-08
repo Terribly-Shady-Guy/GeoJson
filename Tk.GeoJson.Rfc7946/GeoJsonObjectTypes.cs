@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace GeoJson;
+namespace Tk.GeoJson.Rfc7946;
 
 /// <summary>
 /// Represents the different GeoJSON types.

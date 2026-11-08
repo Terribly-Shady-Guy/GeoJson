@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace GeoJson.Geometry;
+namespace Tk.GeoJson.Rfc7946.Geometry;
 
 /// <summary>
 /// A geometry GeoJSON type representing a collection of LineStrings.

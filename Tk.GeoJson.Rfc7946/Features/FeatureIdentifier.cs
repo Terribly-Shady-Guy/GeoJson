@@ -1,8 +1,8 @@
-﻿using GeoJson.Converters;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
+using Tk.GeoJson.Rfc7946.Converters;
 
-namespace GeoJson.Features;
+namespace Tk.GeoJson.Rfc7946.Features;
 
 /// <summary>
 /// A type to represent an id value. Id can either be string or double.

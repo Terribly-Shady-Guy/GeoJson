@@ -1,7 +1,7 @@
-﻿using GeoJson.Converters;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using Tk.GeoJson.Rfc7946.Converters;
 
-namespace GeoJson;
+namespace Tk.GeoJson.Rfc7946;
 
 /// <summary>
 /// Represents a bounding box for a GeoJSON type.

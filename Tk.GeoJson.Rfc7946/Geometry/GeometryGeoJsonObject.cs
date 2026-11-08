@@ -1,7 +1,7 @@
-﻿using GeoJson.Converters;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using Tk.GeoJson.Rfc7946.Converters;
 
-namespace GeoJson.Geometry;
+namespace Tk.GeoJson.Rfc7946.Geometry;
 
 /// <summary>
 /// A marker class representing a geometry GeoJSON type.

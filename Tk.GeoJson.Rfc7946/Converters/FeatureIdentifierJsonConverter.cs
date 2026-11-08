@@ -1,8 +1,8 @@
-﻿using GeoJson.Features;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using Tk.GeoJson.Rfc7946.Features;
 
-namespace GeoJson.Converters;
+namespace Tk.GeoJson.Rfc7946.Converters;
 
 public sealed class FeatureIdentifierJsonConverter : JsonConverter<FeatureIdentifier>
 {

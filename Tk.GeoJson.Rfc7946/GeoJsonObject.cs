@@ -1,9 +1,9 @@
-﻿using GeoJson.Converters;
-using GeoJson.Features;
-using GeoJson.Geometry;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using Tk.GeoJson.Rfc7946.Converters;
+using Tk.GeoJson.Rfc7946.Features;
+using Tk.GeoJson.Rfc7946.Geometry;
 
-namespace GeoJson;
+namespace Tk.GeoJson.Rfc7946;
 
 /// <summary>
 /// Top level class representing all GeoJSON types.
