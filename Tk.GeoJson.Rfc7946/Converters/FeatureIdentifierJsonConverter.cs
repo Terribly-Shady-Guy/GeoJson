@@ -4,6 +4,12 @@ using Tk.GeoJson.Rfc7946.Features;
 
 namespace Tk.GeoJson.Rfc7946.Converters;
 
+/// <summary>
+/// A <see cref="JsonConverter"/> that is responsible for converting a <see cref="FeatureIdentifier"/> to a string or number JSON value and vice versa.
+/// </summary>
+/// <remarks>
+/// This converter will be removed in the future when <see cref="FeatureIdentifier"/> is converted to a union type in C# 15, and the <see cref="JsonConverter"/> will no longer be needed.
+/// </remarks>
 public sealed class FeatureIdentifierJsonConverter : JsonConverter<FeatureIdentifier>
 {
     public override FeatureIdentifier Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)

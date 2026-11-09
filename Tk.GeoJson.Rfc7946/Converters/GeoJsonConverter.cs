@@ -6,6 +6,9 @@ using Tk.GeoJson.Rfc7946.Geometry;
 
 namespace Tk.GeoJson.Rfc7946.Converters;
 
+/// <summary>
+/// A <see cref="JsonConverter"/> that is responsible for converting a <see cref="GeoJsonObject"/> to and from a JSON object representing its underlying GeoJSON type.
+/// </summary>
 public sealed class GeoJsonConverter : JsonConverter<GeoJsonObject>
 {
     public override GeoJsonObject? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)

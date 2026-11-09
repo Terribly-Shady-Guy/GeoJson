@@ -3,6 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace Tk.GeoJson.Rfc7946.Converters;
 
+/// <summary>
+/// A <see cref="JsonConverter"/> that is responsible for converting an <see cref="IBoundingBox"/> to and from a JSON array.
+/// </summary>
 public sealed class BoundingBoxJsonConverter : JsonConverter<IBoundingBox>
 {
     public override IBoundingBox Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)

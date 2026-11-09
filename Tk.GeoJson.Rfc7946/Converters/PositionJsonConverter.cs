@@ -4,6 +4,9 @@ using Tk.GeoJson.Rfc7946.Geometry;
 
 namespace Tk.GeoJson.Rfc7946.Converters;
 
+/// <summary>
+/// A <see cref="JsonConverter"/> that is responsible for converting a <see cref="Position"/> to and from a JSON array.
+/// </summary>
 public sealed class PositionJsonConverter : JsonConverter<Position>
 {
     private const int LatitudeIndex = 1;
