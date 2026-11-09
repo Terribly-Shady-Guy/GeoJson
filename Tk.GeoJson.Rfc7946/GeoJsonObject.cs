@@ -1,7 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using Tk.GeoJson.Rfc7946.Converters;
 using Tk.GeoJson.Rfc7946.Features;
-using Tk.GeoJson.Rfc7946.Geometry;
 
 namespace Tk.GeoJson.Rfc7946;
 
