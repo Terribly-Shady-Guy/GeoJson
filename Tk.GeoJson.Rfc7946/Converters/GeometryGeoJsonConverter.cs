@@ -60,7 +60,7 @@ public sealed class GeometryGeoJsonConverter : JsonConverter<IGeoJsonGeometry>
     }
 }
 
-public static class GeometryGeoJsonObjectFactory
+internal static class GeometryGeoJsonObjectFactory
 {
     public static IGeoJsonGeometry? Create(JsonDocument document, GeoJsonObjectTypes type, JsonSerializerOptions options)
     {
