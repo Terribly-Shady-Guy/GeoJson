@@ -11,6 +11,11 @@ public sealed class GeometryGeoJsonConverter : JsonConverter<IGeoJsonGeometry>
 {
     public override IGeoJsonGeometry? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
+        if (reader.TokenType != JsonTokenType.StartObject)
+        {
+            throw new JsonException("Expected a JSON object for GeoJSON geometry.");
+        }
+
         using var document = JsonDocument.ParseValue(ref reader);
         JsonElement root = document.RootElement;
 

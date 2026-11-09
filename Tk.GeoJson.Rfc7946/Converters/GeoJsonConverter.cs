@@ -13,6 +13,11 @@ public sealed class GeoJsonConverter : JsonConverter<GeoJsonObject>
 {
     public override GeoJsonObject? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
+        if (reader.TokenType != JsonTokenType.StartObject)
+        {
+            throw new JsonException("Expected a JSON object for GeoJSON.");
+        }
+
         using var document = JsonDocument.ParseValue(ref reader);
         if (!document.RootElement.TryGetProperty("type", out JsonElement typeProperty))
         {
