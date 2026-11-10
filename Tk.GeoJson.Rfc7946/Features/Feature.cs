@@ -3,6 +3,9 @@ using Tk.GeoJson.Rfc7946.Geometry;
 
 namespace Tk.GeoJson.Rfc7946.Features;
 
+/// <summary>
+/// A union type representing a Feature identifier. This can be either a string or a double.
+/// </summary>
 public readonly union FeatureIdentifier(string, double);
 
 /// <summary>
