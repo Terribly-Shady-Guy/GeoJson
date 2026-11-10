@@ -3,6 +3,8 @@ using Tk.GeoJson.Rfc7946.Geometry;
 
 namespace Tk.GeoJson.Rfc7946.Features;
 
+public readonly union FeatureIdentifier(string, double);
+
 /// <summary>
 /// Represents a Feature GeoJSON object type.
 /// </summary>
