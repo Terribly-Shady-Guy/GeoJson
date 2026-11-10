@@ -36,7 +36,7 @@ public sealed class GeoJsonConverter : JsonConverter<GeoJsonObject>
                 .Deserialize<Feature<IGeoJsonGeometry?, JsonObject?>>(options),
             GeoJsonObjectTypes.FeatureCollection => document.RootElement
                 .Deserialize<FeatureCollection<IGeoJsonGeometry?, JsonObject?>>(options),
-            _ => GeometryGeoJsonObjectFactory.Create(document, geoJsonType, options) as GeoJsonObject,
+            _ => (GeoJsonObject?)GeometryGeoJsonObjectFactory.Create(document, geoJsonType, options),
         };
     }
 
