@@ -1,13 +1,14 @@
 ﻿using System.Text.Json.Serialization;
+using Tk.GeoJson.Rfc7946.CoordinateModels;
 
 namespace Tk.GeoJson.Rfc7946.Geometry;
 
 /// <summary>
 /// A geometry GeoJSON type representing a single position.
 /// </summary>
-public sealed class PointGeometry : GeoJsonObject, IGeoJsonGeometry
+public sealed class Point : GeoJsonObject, IGeoJsonGeometry
 {
-    public PointGeometry(Position coordinates)
+    public Point(Position coordinates)
     {
         Coordinates = coordinates;
     }

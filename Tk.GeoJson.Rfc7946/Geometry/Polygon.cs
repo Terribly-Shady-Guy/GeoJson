@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Tk.GeoJson.Rfc7946.CoordinateModels;
 
 namespace Tk.GeoJson.Rfc7946.Geometry;
 
@@ -14,9 +15,9 @@ namespace Tk.GeoJson.Rfc7946.Geometry;
 /// </list>
 /// </remarks>
 /// 
-public sealed class PolygonGeometry : GeoJsonObject, IGeoJsonGeometry
+public sealed class Polygon : GeoJsonObject, IGeoJsonGeometry
 {
-    public PolygonGeometry(IEnumerable<IEnumerable<Position>> coordinates)
+    public Polygon(PolygonCoordinates coordinates)
     {
         Coordinates = coordinates;
     }
@@ -29,5 +30,5 @@ public sealed class PolygonGeometry : GeoJsonObject, IGeoJsonGeometry
     /// </summary>
     [JsonPropertyName("coordinates")]
     [JsonPropertyOrder(2)]
-    public IEnumerable<IEnumerable<Position>> Coordinates { get; }
+    public PolygonCoordinates Coordinates { get; }
 }

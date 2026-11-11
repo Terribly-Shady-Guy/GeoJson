@@ -1,13 +1,14 @@
 ﻿using System.Text.Json.Serialization;
+using Tk.GeoJson.Rfc7946.CoordinateModels;
 
 namespace Tk.GeoJson.Rfc7946.Geometry;
 
 /// <summary>
 /// A geometry GeoJSON type representing a collection of LineStrings.
 /// </summary>
-public sealed class MultiLineStringGeometry : GeoJsonObject, IGeoJsonGeometry
+public sealed class MultiLineString : GeoJsonObject, IGeoJsonGeometry
 {
-    public MultiLineStringGeometry(IEnumerable<IEnumerable<Position>> coordinates)
+    public MultiLineString(IList<LineStringCoordinates> coordinates)
     {
         Coordinates = coordinates;
     }
@@ -20,5 +21,5 @@ public sealed class MultiLineStringGeometry : GeoJsonObject, IGeoJsonGeometry
     /// </summary>
     [JsonPropertyName("coordinates")]
     [JsonPropertyOrder(2)]
-    public IEnumerable<IEnumerable<Position>> Coordinates { get; }
+    public IList<LineStringCoordinates> Coordinates { get; }
 }

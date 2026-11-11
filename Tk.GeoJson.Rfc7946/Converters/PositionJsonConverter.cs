@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using Tk.GeoJson.Rfc7946.Geometry;
+using Tk.GeoJson.Rfc7946.CoordinateModels;
 
 namespace Tk.GeoJson.Rfc7946.Converters;
 
@@ -19,7 +19,7 @@ public sealed class PositionJsonConverter : JsonConverter<Position>
         {
             throw new JsonException("Expected start of array for Position.");
         }
-
+        
         int position = 0;
 
         double longitude = 0;

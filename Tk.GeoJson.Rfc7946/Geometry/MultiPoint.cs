@@ -1,13 +1,14 @@
 ﻿using System.Text.Json.Serialization;
+using Tk.GeoJson.Rfc7946.CoordinateModels;
 
 namespace Tk.GeoJson.Rfc7946.Geometry;
 
 /// <summary>
 /// A geometry GeoJSON type representing a collection of positions.
 /// </summary>
-public sealed class MultiPointGeometry : GeoJsonObject, IGeoJsonGeometry
+public sealed class MultiPoint : GeoJsonObject, IGeoJsonGeometry
 {
-    public MultiPointGeometry(IEnumerable<Position> coordinates)
+    public MultiPoint(IEnumerable<Position> coordinates)
     {
         Coordinates = coordinates;
     }

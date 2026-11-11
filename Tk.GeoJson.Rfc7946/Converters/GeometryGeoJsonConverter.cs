@@ -35,22 +35,22 @@ public sealed class GeometryGeoJsonConverter : JsonConverter<IGeoJsonGeometry>
     {
         switch (value)
         {
-            case PointGeometry point:
+            case Point point:
                 JsonSerializer.Serialize(writer, point, options);
                 break;
-            case MultiPointGeometry multiPoint:
+            case MultiPoint multiPoint:
                 JsonSerializer.Serialize(writer, multiPoint, options);
                 break;
-            case LineStringGeometry lineString:
+            case LineString lineString:
                 JsonSerializer.Serialize(writer, lineString, options);
                 break;
-            case MultiLineStringGeometry multiLineString:
+            case MultiLineString multiLineString:
                 JsonSerializer.Serialize(writer, multiLineString, options);
                 break;
-            case PolygonGeometry polygon:
+            case Polygon polygon:
                 JsonSerializer.Serialize(writer, polygon, options);
                 break;
-            case MultiPolygonGeometry multiPolygon:
+            case MultiPolygon multiPolygon:
                 JsonSerializer.Serialize(writer, multiPolygon, options);
                 break;
             case GeometryCollection geometryCollection:
@@ -69,12 +69,12 @@ internal static class GeometryGeoJsonObjectFactory
         JsonElement root = document.RootElement;
         return type switch
         {
-            GeoJsonObjectTypes.Point => root.Deserialize<PointGeometry>(options),
-            GeoJsonObjectTypes.MultiPoint => root.Deserialize<MultiPointGeometry>(options),
-            GeoJsonObjectTypes.LineString => root.Deserialize<LineStringGeometry>(options),
-            GeoJsonObjectTypes.MultiLineString => root.Deserialize<MultiLineStringGeometry>(options),
-            GeoJsonObjectTypes.Polygon => root.Deserialize<PolygonGeometry>(options),
-            GeoJsonObjectTypes.MultiPolygon => root.Deserialize<MultiPolygonGeometry>(options),
+            GeoJsonObjectTypes.Point => root.Deserialize<Point>(options),
+            GeoJsonObjectTypes.MultiPoint => root.Deserialize<MultiPoint>(options),
+            GeoJsonObjectTypes.LineString => root.Deserialize<LineString>(options),
+            GeoJsonObjectTypes.MultiLineString => root.Deserialize<MultiLineString>(options),
+            GeoJsonObjectTypes.Polygon => root.Deserialize<Polygon>(options),
+            GeoJsonObjectTypes.MultiPolygon => root.Deserialize<MultiPolygon>(options),
             GeoJsonObjectTypes.GeometryCollection => root.Deserialize<GeometryCollection>(options),
             _ => null
         };

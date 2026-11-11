@@ -1,13 +1,14 @@
 ﻿using System.Text.Json.Serialization;
+using Tk.GeoJson.Rfc7946.CoordinateModels;
 
 namespace Tk.GeoJson.Rfc7946.Geometry;
 
 /// <summary>
 /// A geometry GeoJSON type representing a collection of polygons.
 /// </summary>
-public sealed class MultiPolygonGeometry : GeoJsonObject, IGeoJsonGeometry
+public sealed class MultiPolygon : GeoJsonObject, IGeoJsonGeometry
 {
-    public MultiPolygonGeometry(IEnumerable<IEnumerable<IEnumerable<Position>>> coordinates)
+    public MultiPolygon(IList<PolygonCoordinates> coordinates)
     {
         Coordinates = coordinates;
     }
@@ -20,5 +21,5 @@ public sealed class MultiPolygonGeometry : GeoJsonObject, IGeoJsonGeometry
     /// </summary>
     [JsonPropertyName("coordinates")]
     [JsonPropertyOrder(2)]
-    public IEnumerable<IEnumerable<IEnumerable<Position>>> Coordinates { get; }
+    public IList<PolygonCoordinates> Coordinates { get; }
 }
