@@ -14,7 +14,6 @@ namespace Tk.GeoJson.Rfc7946;
 /// Deserializing a Feature will create a <see cref="Feature{TGeometry, TProperties}"/>, where TGeometry is <see cref="GeometryGeoJsonObject"/>? and TProperties is <see cref="System.Text.Json.Nodes.JsonObject"/>?. 
 /// Deserializing a FeatureCollection will create a <see cref="FeatureCollection{TGeometry, TFeatureProperties}"/>, where TGeometry is <see cref="GeometryGeoJsonObject"/>? and TFeatureProperties is <see cref="System.Text.Json.Nodes.JsonObject"/>?.
 /// </para>
-/// <para>This will be updated to be a closed type in a future version.</para>
 /// </remarks>
 [JsonConverter(typeof(GeoJsonConverter))]
 public abstract class GeoJsonObject
