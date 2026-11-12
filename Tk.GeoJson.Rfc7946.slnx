@@ -1,4 +1,3 @@
 <Solution>
-  <Project Path="Test/Test.csproj" Id="784cfc30-e447-4438-bb89-a40bdbd3fb92" />
   <Project Path="Tk.GeoJson.Rfc7946/Tk.GeoJson.Rfc7946.csproj" />
 </Solution>
