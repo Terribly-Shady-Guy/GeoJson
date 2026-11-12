@@ -86,9 +86,9 @@ public readonly struct InteriorRingsCollection : IReadOnlyList<LinearRingCoordin
 
     public IEnumerator<LinearRingCoordinates> GetEnumerator()
     {
-        for (int i = 1; i < _positions.Count - 1; i++)
+        for (int i = 1; i < _positions.Count; i++)
         {
-            yield return _positions[i + 1];
+            yield return _positions[i];
         }
     }
 
