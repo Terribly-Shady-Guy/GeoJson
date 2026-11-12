@@ -38,7 +38,7 @@ public sealed class Feature<TGeometry, TProperties> : GeoJsonObject
     public FeatureIdentifier? Id { get; set; } = null;
 
     /// <summary>
-    /// Represents the "geometry" property in a feature. This will contain a <see cref="GeometryGeoJsonObject"/> that maps to a supported geometry type listed in the rfc standard.
+    /// Represents the "geometry" property in a feature. This will contain a <see cref="IGeoJsonGeometry"/> that maps to a supported geometry type listed in the rfc standard.
     /// </summary>
     [JsonPropertyName("geometry")]
     [JsonPropertyOrder(2)]
