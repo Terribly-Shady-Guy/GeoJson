@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Text.Json.Nodes;
+using System.Text.Json.Serialization;
 using Tk.GeoJson.Rfc7946.Converters;
 using Tk.GeoJson.Rfc7946.Features;
 using Tk.GeoJson.Rfc7946.Geometry;
@@ -41,5 +42,5 @@ public abstract class GeoJsonObject
     /// Rfc 7946 allows for nonstandard properties to be included in GeoJSON objects. This property will contain these properties or null if none exists.
     /// </summary>
     [JsonExtensionData]
-    public IDictionary<string, object?>? ForeignMembers { get; set; } = null;
+    public JsonObject? ForeignMembers { get; set; } = null;
 }

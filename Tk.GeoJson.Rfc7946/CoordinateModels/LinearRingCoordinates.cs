@@ -1,52 +1,59 @@
-﻿using System.Collections;
-using System.Runtime.CompilerServices;
+﻿using System.Collections.ObjectModel;
 
 namespace Tk.GeoJson.Rfc7946.CoordinateModels;
 
-[CollectionBuilder(typeof(LinearRingCoordinates), nameof(Create))]
-public sealed class LinearRingCoordinates : IReadOnlyList<Position>, ICoordinates
+public sealed class LinearRingCoordinates : Collection<Position>, ICoordinates
 {
-    private readonly IList<Position> _items;
-
-    public LinearRingCoordinates(IList<Position> positions)
+    public LinearRingCoordinates() : base()
     {
-        if (positions.Count < 4 || positions[0] != positions[^1])
+        Dimensions = 0;
+    }
+
+    public LinearRingCoordinates(int numDimensions) : base()
+    {
+        Dimensions = numDimensions;
+    }
+
+    public LinearRingCoordinates(IList<Position> items) : base(items)
+    {
+        Dimensions = 0;
+    }
+
+    public LinearRingCoordinates(int numDimensions, IList<Position> items) : base(items)
+    {
+        Dimensions = numDimensions;
+    }
+
+    public int Dimensions { get; private set; }
+    internal bool IsValidLinearRing => Count >= 4 && Items[0] == Items[^1];
+
+    protected override void InsertItem(int index, Position item)
+    {
+        if (Dimensions == 0)
         {
-            throw new ArgumentException("A valid LinearRing requires at least 4 positions and the first and last positions must be identical.");
+            Dimensions = item.Dimensions;
         }
 
-        _items = positions;
-        Dimensions = positions.All(position => position.Dimensions == 3) ? 3 : 2;
+        ThrowArgumentExceptionOnMismatchedDimensions(item);
+        base.InsertItem(index, item);
     }
 
-    public Position this[int index]
+    protected override void SetItem(int index, Position item)
     {
-        get
+        if (Dimensions == 0)
         {
-            if (index < 0 || index >= _items.Count)
-            {
-                throw new ArgumentOutOfRangeException(nameof(index), "The provided index is out of bounds.");
-            }
-
-            return _items[index];
+            Dimensions = item.Dimensions;
         }
+
+        ThrowArgumentExceptionOnMismatchedDimensions(item);
+        base.SetItem(index, item);
     }
 
-    public int Count => _items.Count;
-    public int Dimensions { get; }
-
-    public IEnumerator<Position> GetEnumerator()
+    private void ThrowArgumentExceptionOnMismatchedDimensions(Position item)
     {
-        return _items.GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
-
-    public static LinearRingCoordinates Create(params ReadOnlySpan<Position> items)
-    {
-        return new LinearRingCoordinates(items.ToArray());
+        if (item.Dimensions != Dimensions)
+        {
+            throw new ArgumentException($"The Linear ring only allows {Dimensions} dimensions, got {item.Dimensions} dimensions.", nameof(item));
+        }
     }
 }

@@ -1,52 +1,59 @@
-﻿using System.Collections;
-using System.Runtime.CompilerServices;
+﻿using System.Collections.ObjectModel;
 
 namespace Tk.GeoJson.Rfc7946.CoordinateModels;
 
-[CollectionBuilder(typeof(LineStringCoordinates), nameof(Create))]
-public sealed class LineStringCoordinates : IReadOnlyList<Position>, ICoordinates
+public sealed class LineStringCoordinates : Collection<Position>, ICoordinates
 {
-    private readonly IList<Position> _items;
-
-    public LineStringCoordinates(IList<Position> positions)
+    public LineStringCoordinates() : base()
     {
-        if (positions.Count < 2)
+        Dimensions = 0;
+    }
+
+    public LineStringCoordinates(int numDimensions) : base()
+    {
+        Dimensions = numDimensions;  
+    }
+
+    public LineStringCoordinates(IList<Position> items) : base(items)
+    {
+        Dimensions = 0;
+    }
+
+    public LineStringCoordinates(int numDimensions, IList<Position> positions) : base(positions)
+    {
+        Dimensions = numDimensions;
+    }
+
+    public int Dimensions { get; private set; }
+    internal bool IsValidLineString => Count < 2;
+
+    protected override void InsertItem(int index, Position item)
+    {
+        if (Dimensions == 0)
         {
-            throw new ArgumentException("A valid LineString requires at least 2 positions.");
+            Dimensions = item.Dimensions;
         }
 
-        _items = positions;
-        Dimensions = positions.All(position => position.Dimensions == 3) ? 3 : 2;
+        ThrowArgumentExceptionIfMismatchedDimensions(item);
+        base.InsertItem(index, item);
     }
 
-    public Position this[int index]
+    protected override void SetItem(int index, Position item)
     {
-        get
+        if (Dimensions == 0)
         {
-            if (index < 0 || index >= _items.Count)
-            {
-                throw new ArgumentOutOfRangeException(nameof(index), "The provided index is out of range.");
-            }
-
-            return _items[index];
+            Dimensions = item.Dimensions;
         }
+
+        ThrowArgumentExceptionIfMismatchedDimensions(item);
+        base.SetItem(index, item);
     }
 
-    public int Dimensions { get; }
-    public int Count => _items.Count;
-
-    public IEnumerator<Position> GetEnumerator()
+    private void ThrowArgumentExceptionIfMismatchedDimensions(Position item)
     {
-        return _items.GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
-
-    public static LineStringCoordinates Create(params ReadOnlySpan<Position> positions)
-    {
-        return new LineStringCoordinates(positions.ToArray());
+        if (item.Dimensions != Dimensions)
+        {
+            throw new ArgumentException($"Instance only allows {Dimensions} dimensions, got {item.Dimensions} dimensions.", nameof(item));
+        }
     }
 }

@@ -1,55 +1,66 @@
 ﻿using System.Collections;
-using System.Runtime.CompilerServices;
+using System.Collections.ObjectModel;
 
 namespace Tk.GeoJson.Rfc7946.CoordinateModels;
 
-[CollectionBuilder(typeof(PolygonCoordinates), nameof(Create))]
-public sealed class PolygonCoordinates : IReadOnlyList<LinearRingCoordinates>, ICoordinates
+public sealed class PolygonCoordinates : Collection<LinearRingCoordinates>, ICoordinates
 {
-    private readonly IList<LinearRingCoordinates> _items;
-
-    public PolygonCoordinates(IList<LinearRingCoordinates> positions)
+    public PolygonCoordinates() : base()
     {
-        _items = positions;
-        Dimensions = positions.All(line => line.Dimensions == 3) ? 3 : 2;
+        Dimensions = 0;    
     }
 
-    public LinearRingCoordinates this[int index]
+    public PolygonCoordinates(int numDimensions) : base()
     {
-        get
+        Dimensions = numDimensions;
+    }
+
+    public PolygonCoordinates(IList<LinearRingCoordinates> items) : base(items)
+    {
+        Dimensions = 0;
+    }
+
+    public PolygonCoordinates(int numDimensions, IList<LinearRingCoordinates> items) : base(items)
+    {
+        Dimensions = numDimensions;
+    }
+
+    public int Dimensions { get; private set; }
+    public LinearRingCoordinates ExteriorRing => Items[0];
+    public InteriorRingsCollection Holes => new(Items);
+
+    protected override void InsertItem(int index, LinearRingCoordinates item)
+    {
+        if (Dimensions == 0)
         {
-            if (index < 0 || index >= _items.Count)
-            {
-                throw new ArgumentOutOfRangeException(nameof(index), "The provided index is out of range.");
-            }
-
-            return _items[index];
+            Dimensions = item.Dimensions;
         }
+
+        ThrowArgumentExceptionOnMismatchedDimensions(item);
+        base.InsertItem(index, item);
     }
 
-    public int Dimensions { get; }
-    public LinearRingCoordinates ExteriorRing => _items[0];
-    public InteriorRingsCollection Holes => new(_items);
-
-    public int Count => _items.Count;
-
-    public IEnumerator<LinearRingCoordinates> GetEnumerator()
+    protected override void SetItem(int index, LinearRingCoordinates item)
     {
-        return _items.GetEnumerator();
+        if (Dimensions == 0)
+        {
+            Dimensions = item.Dimensions;
+        }
+
+        ThrowArgumentExceptionOnMismatchedDimensions(item);
+        base.SetItem(index, item);
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
+    private void ThrowArgumentExceptionOnMismatchedDimensions(LinearRingCoordinates item)
     {
-        return GetEnumerator();
-    }
-
-    public static PolygonCoordinates Create(params ReadOnlySpan<LinearRingCoordinates> positions)
-    {
-        return new PolygonCoordinates(positions.ToArray());
+        if (item.Dimensions != Dimensions)
+        {
+            throw new ArgumentException($"This Polygon only allows {Dimensions} dimensions, got {item.Dimensions} instead.", nameof(item));
+        }
     }
 }
 
-public readonly ref struct InteriorRingsCollection : IReadOnlyList<LinearRingCoordinates>
+public readonly struct InteriorRingsCollection : IReadOnlyList<LinearRingCoordinates>
 {
     private readonly IList<LinearRingCoordinates> _positions;
 
@@ -75,9 +86,9 @@ public readonly ref struct InteriorRingsCollection : IReadOnlyList<LinearRingCoo
 
     public IEnumerator<LinearRingCoordinates> GetEnumerator()
     {
-        for (int i = 1; i < _positions.Count; i++)
+        for (int i = 1; i < _positions.Count - 1; i++)
         {
-            yield return _positions[i];
+            yield return _positions[i + 1];
         }
     }
 
